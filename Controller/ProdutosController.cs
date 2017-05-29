@@ -26,25 +26,54 @@ namespace Controller
             Banco.SaveChanges();
         }
 
-        public IEnumerable<Produto> Listar()
+        public IList<Produto> Listar()
         {
             return Banco.Produtos.ToList();
         }
 
-        public Produto Selecionar(int id)
+        public IList<ProdutoComposto> ListarProdutosCompostos()
         {
-            return Banco.Produtos.Where(x => x.Id == id).First();
+            return Banco.ProdutosCompostos.ToList();
         }
 
-        public void Alterar(ProdutoSimples produtoSimples)
+        public IList<ProdutoSimples> ListarProdutosSimples()
         {
-            ProdutoSimples produtoSalvar = Banco.ProdutosSimples.Where(x => x.Id == produtoSimples.Id).First();
-            produtoSalvar.Nome = produtoSimples.Nome;
-            produtoSalvar.PrecoCusto = produtoSimples.PrecoCusto;
-            produtoSalvar.PrecoVenda = produtoSimples.PrecoVenda;
-            produtoSalvar.Quantidade = produtoSimples.Quantidade;
+            return Banco.ProdutosSimples.ToList();
+        }
+
+        public ProdutoSimples SelecionarProdutosSimples(string nome)
+        {
+            return Banco.ProdutosSimples.Where(x => x.Nome == nome).FirstOrDefault();
+        }
+
+        public ProdutoComposto SelecionarProdutosCompostos(string nome)
+        {
+            return Banco.ProdutosCompostos.Where(x => x.Nome == nome).FirstOrDefault();
+        }
+
+        public Produto Selecionar(string nome)
+        {
+            return Banco.Produtos.Where(x => x.Nome == nome).FirstOrDefault();
+        }
+
+        public void Alterar(Produto produto)
+        {
+            ProdutoSimples produtoSalvar = Banco.ProdutosSimples.Where(x => x.Id == produto.Id).First();
+            produtoSalvar.Nome = produto.Nome;
+            produtoSalvar.PrecoCusto = produto.PrecoCusto;
+            produtoSalvar.PrecoVenda = produto.PrecoVenda;
             Banco.SaveChanges();
         }
+
+        //public void Alterar(ProdutoSimples produtoSimples)
+        //{
+        //    ProdutoSimples produtoSalvar = Banco.ProdutosSimples.Where(x => x.Id == produtoSimples.Id).First();
+        //    produtoSalvar.Nome = produtoSimples.Nome;
+        //    produtoSalvar.PrecoCusto = produtoSimples.PrecoCusto;
+        //    produtoSalvar.PrecoVenda = produtoSimples.PrecoVenda;
+        //    produtoSalvar.Quantidade = produtoSimples.Quantidade;
+        //    Banco.SaveChanges();
+        //}
 
         public void Alterar(ProdutoComposto produtoComposto)
         {

@@ -20,7 +20,7 @@ namespace Controller
             Banco.SaveChanges();
         }
 
-        public IEnumerable<ProdutosDaComposicao> Listar()
+        public IList<ProdutosDaComposicao> Listar()
         {
             return Banco.ProdutosDaComposicao.ToList();
         }
