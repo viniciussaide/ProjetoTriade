@@ -20,9 +20,10 @@ namespace UIForms
         private void BtnSave_Click(object sender, EventArgs e)
         {
             ProdutosController produtosController = new ProdutosController();
+            int id = int.Parse(comboBoxProductName.SelectedValue.ToString());
             if (txtCostValue.Text !="" || txtSellValue.Text != "" || comboBoxProductName.Text !="")
             {
-                if (produtosController.Selecionar(comboBoxProductName.Text) != null)
+                if (produtosController.Selecionar(id) != null)
                 {
                     if (!decimal.TryParse(txtCostValue.Text, out decimal txtCost))
                     {
@@ -36,7 +37,7 @@ namespace UIForms
                     }
                     else
                     {
-                        Produto produto = produtosController.Selecionar(comboBoxProductName.Text);
+                        Produto produto = produtosController.Selecionar(id);
                         produto.PrecoCusto = txtCost;
                         produto.PrecoVenda = txtSell;
                         produtosController.Alterar(produto);
@@ -85,11 +86,12 @@ namespace UIForms
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             ProdutosController produtosController = new ProdutosController();
+            int id = int.Parse(comboBoxProductName.SelectedValue.ToString());
             if (comboBoxProductName.Text != "")
             {
-                if (produtosController.Selecionar(comboBoxProductName.Text) != null)
+                if (produtosController.Selecionar(id) != null)
                 {
-                    Produto produto = produtosController.Selecionar(comboBoxProductName.Text);
+                    Produto produto = produtosController.Selecionar(id);
                     produtosController.Excluir(produto);
                     MessageBox.Show("Produto excluído com sucesso", "Sucesso ao excluir",
                         MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
@@ -113,9 +115,10 @@ namespace UIForms
         private void ComboBoxProductName_TextChanged(object sender, EventArgs e)
         {
             ProdutosController produtosController = new ProdutosController();
-            if (produtosController.SelecionarProdutosSimples(comboBoxProductName.Text) != null)
+            int id = int.Parse(comboBoxProductName.SelectedValue.ToString());
+            if (produtosController.SelecionarProdutosSimples(id) != null)
             {
-                Produto produto = produtosController.Selecionar(comboBoxProductName.Text);
+                Produto produto = produtosController.Selecionar(id);
                 txtCostValue.Text = produto.PrecoCusto.ToString();
                 txtSellValue.Text = produto.PrecoVenda.ToString();
             }

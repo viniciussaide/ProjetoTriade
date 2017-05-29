@@ -41,19 +41,19 @@ namespace Controller
             return Banco.ProdutosSimples.ToList();
         }
 
-        public ProdutoSimples SelecionarProdutosSimples(string nome)
+        public ProdutoSimples SelecionarProdutosSimples(int id)
         {
-            return Banco.ProdutosSimples.Where(x => x.Nome == nome).FirstOrDefault();
+            return Banco.ProdutosSimples.Where(x => x.Id == id).FirstOrDefault();
         }
 
-        public ProdutoComposto SelecionarProdutosCompostos(string nome)
+        public ProdutoComposto SelecionarProdutosCompostos(int id)
         {
-            return Banco.ProdutosCompostos.Where(x => x.Nome == nome).FirstOrDefault();
+            return Banco.ProdutosCompostos.Where(x => x.Id == id).FirstOrDefault();
         }
 
-        public Produto Selecionar(string nome)
+        public Produto Selecionar(int id)
         {
-            return Banco.Produtos.Where(x => x.Nome == nome).FirstOrDefault();
+            return Banco.Produtos.Where(x => x.Id == id).FirstOrDefault();
         }
 
         public void Alterar(Produto produto)

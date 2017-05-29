@@ -18,7 +18,7 @@ namespace UIConsole
             //Console.WriteLine(requisicaoController.Selecionar(id));
             //requisicaoController.Excluir(requisicao);
             //Console.WriteLine(requisicao.ToString());
-            //Console.ReadLine();
+            Console.ReadLine();
         }
     }
 }

@@ -49,5 +49,18 @@ namespace Controller
             Banco.Set<ProdutosDaComposicao>().Remove(produtosDaComposicaoExcluir);
             Banco.SaveChanges();
         }
+
+        public void Excluir(Produto produto)
+        {
+            int count = Banco.ProdutosDaComposicao.Where(x => x.FKprodutoComposto == produto.Id).Count();
+            if (count > 0)
+            {
+                ProdutosDaComposicao produtosDaComposicaoExcluir =
+                    Banco.ProdutosDaComposicao
+                    .Where(x => x.FKprodutoComposto == produto.Id).First();
+                Banco.Set<ProdutosDaComposicao>().Remove(produtosDaComposicaoExcluir);
+                Banco.SaveChanges();
+            }
+        }
     }
 }

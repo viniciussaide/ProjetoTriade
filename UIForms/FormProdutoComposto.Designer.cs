@@ -36,7 +36,8 @@
             this.txtSellValue = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtCostValue = new System.Windows.Forms.TextBox();
-            this.listBoxProdutosDaComposicao = new System.Windows.Forms.ListBox();
+            this.dataGridProdutosDaComposicao = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridProdutosDaComposicao)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBoxProductName
@@ -44,35 +45,39 @@
             this.comboBoxProductName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.comboBoxProductName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboBoxProductName.FormattingEnabled = true;
-            this.comboBoxProductName.Location = new System.Drawing.Point(149, 23);
+            this.comboBoxProductName.Location = new System.Drawing.Point(112, 19);
+            this.comboBoxProductName.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxProductName.Name = "comboBoxProductName";
-            this.comboBoxProductName.Size = new System.Drawing.Size(351, 24);
+            this.comboBoxProductName.Size = new System.Drawing.Size(264, 21);
             this.comboBoxProductName.TabIndex = 8;
-            this.comboBoxProductName.TextChanged += new System.EventHandler(this.ComboBoxProductName_TextChanged);
+            this.comboBoxProductName.SelectedValueChanged += new System.EventHandler(this.ComboBoxProductName_ValueChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(24, 65);
+            this.label3.Location = new System.Drawing.Point(18, 53);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(110, 17);
+            this.label3.Size = new System.Drawing.Size(84, 13);
             this.label3.TabIndex = 13;
             this.label3.Text = "Preço de Venda";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 26);
+            this.label1.Location = new System.Drawing.Point(18, 21);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 17);
+            this.label1.Size = new System.Drawing.Size(90, 13);
             this.label1.TabIndex = 12;
             this.label1.Text = "Nome do Produto";
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(425, 386);
+            this.btnDelete.Location = new System.Drawing.Point(319, 314);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(2);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.Size = new System.Drawing.Size(56, 19);
             this.btnDelete.TabIndex = 11;
             this.btnDelete.Text = "Excluir";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -80,9 +85,10 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(332, 386);
+            this.btnSave.Location = new System.Drawing.Point(249, 314);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(56, 19);
             this.btnSave.TabIndex = 10;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -90,42 +96,44 @@
             // 
             // txtSellValue
             // 
-            this.txtSellValue.Location = new System.Drawing.Point(149, 62);
+            this.txtSellValue.Location = new System.Drawing.Point(112, 50);
+            this.txtSellValue.Margin = new System.Windows.Forms.Padding(2);
             this.txtSellValue.Name = "txtSellValue";
-            this.txtSellValue.Size = new System.Drawing.Size(151, 22);
+            this.txtSellValue.Size = new System.Drawing.Size(114, 20);
             this.txtSellValue.TabIndex = 9;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 361);
+            this.label2.Location = new System.Drawing.Point(18, 293);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(105, 17);
+            this.label2.Size = new System.Drawing.Size(80, 13);
             this.label2.TabIndex = 15;
             this.label2.Text = "Preço de Custo";
             // 
             // txtCostValue
             // 
-            this.txtCostValue.Location = new System.Drawing.Point(149, 358);
+            this.txtCostValue.Location = new System.Drawing.Point(112, 291);
+            this.txtCostValue.Margin = new System.Windows.Forms.Padding(2);
             this.txtCostValue.Name = "txtCostValue";
-            this.txtCostValue.Size = new System.Drawing.Size(151, 22);
+            this.txtCostValue.Size = new System.Drawing.Size(114, 20);
             this.txtCostValue.TabIndex = 14;
             // 
-            // listBoxProdutosDaComposicao
+            // dataGridProdutosDaComposicao
             // 
-            this.listBoxProdutosDaComposicao.FormattingEnabled = true;
-            this.listBoxProdutosDaComposicao.ItemHeight = 16;
-            this.listBoxProdutosDaComposicao.Location = new System.Drawing.Point(27, 110);
-            this.listBoxProdutosDaComposicao.Name = "listBoxProdutosDaComposicao";
-            this.listBoxProdutosDaComposicao.Size = new System.Drawing.Size(473, 228);
-            this.listBoxProdutosDaComposicao.TabIndex = 16;
+            this.dataGridProdutosDaComposicao.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridProdutosDaComposicao.Location = new System.Drawing.Point(21, 85);
+            this.dataGridProdutosDaComposicao.Name = "dataGridProdutosDaComposicao";
+            this.dataGridProdutosDaComposicao.Size = new System.Drawing.Size(354, 185);
+            this.dataGridProdutosDaComposicao.TabIndex = 16;
             // 
             // FormProdutoComposto
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(536, 445);
-            this.Controls.Add(this.listBoxProdutosDaComposicao);
+            this.ClientSize = new System.Drawing.Size(450, 362);
+            this.Controls.Add(this.dataGridProdutosDaComposicao);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtCostValue);
             this.Controls.Add(this.comboBoxProductName);
@@ -134,8 +142,10 @@
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtSellValue);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormProdutoComposto";
             this.Text = "Produto Composto";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridProdutosDaComposicao)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -151,6 +161,6 @@
         private System.Windows.Forms.TextBox txtSellValue;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtCostValue;
-        private System.Windows.Forms.ListBox listBoxProdutosDaComposicao;
+        private System.Windows.Forms.DataGridView dataGridProdutosDaComposicao;
     }
 }
