@@ -10,11 +10,5 @@ namespace Model
         public string Funcionario { get; set; }
 
         public virtual ICollection<ProdutosNasRequisicoes> ProdutosNasRequisicoes { get; set; }
-
-        public override string ToString()
-        {
-            string texto = Id +" - "+ DataRequisicao.ToString() + " - " + Funcionario;
-            return texto;
-        }
     }
 }

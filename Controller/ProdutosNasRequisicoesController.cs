@@ -32,20 +32,20 @@ namespace Controller
 
         public void Alterar(ProdutosNasRequisicoes produtoNasRequisicoes)
         {
-            ProdutosNasRequisicoes produtoNasRequisicoesSalvar =
+            var produtoNasRequisicoesSalvar =
                 Banco.ProdutosNasRequisicoes
                 .Where(x => x.IdRequisicao == produtoNasRequisicoes.IdRequisicao)
-                .Where(x => x.IdProduto == produtoNasRequisicoes.IdProduto).First();
+                .First(x => x.IdProduto == produtoNasRequisicoes.IdProduto);
             produtoNasRequisicoesSalvar.QuantidadeDeProdutos = produtoNasRequisicoes.QuantidadeDeProdutos;
             Banco.SaveChanges();
         }
 
         public void Excluir(ProdutosNasRequisicoes produtoNasRequisicoes)
         {
-            ProdutosNasRequisicoes produtoNasRequisicoesExcluir =
+            var produtoNasRequisicoesExcluir =
                 Banco.ProdutosNasRequisicoes
                 .Where(x => x.IdRequisicao == produtoNasRequisicoes.IdRequisicao)
-                .Where(x => x.IdProduto == produtoNasRequisicoes.IdProduto).First();
+                .First(x => x.IdProduto == produtoNasRequisicoes.IdProduto);
             Banco.Set<ProdutosNasRequisicoes>().Remove(produtoNasRequisicoesExcluir);
             Banco.SaveChanges();
         }

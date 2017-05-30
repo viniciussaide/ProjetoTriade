@@ -36,8 +36,9 @@
             this.txtSellValue = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtCostValue = new System.Windows.Forms.TextBox();
-            this.dataGridProdutosDaComposicao = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridProdutosDaComposicao)).BeginInit();
+            this.listViewProdutosDaComposicao = new System.Windows.Forms.ListView();
+            this.btnAddProduct = new System.Windows.Forms.Button();
+            this.btnRemoveProduct = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // comboBoxProductName
@@ -50,7 +51,8 @@
             this.comboBoxProductName.Name = "comboBoxProductName";
             this.comboBoxProductName.Size = new System.Drawing.Size(264, 21);
             this.comboBoxProductName.TabIndex = 8;
-            this.comboBoxProductName.SelectedValueChanged += new System.EventHandler(this.ComboBoxProductName_ValueChanged);
+            this.comboBoxProductName.SelectedValueChanged += new System.EventHandler(this.ComboBoxProductName_TextChanged);
+            this.comboBoxProductName.TextChanged += new System.EventHandler(this.ComboBoxProductName_TextChanged);
             // 
             // label3
             // 
@@ -74,10 +76,10 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(319, 314);
+            this.btnDelete.Location = new System.Drawing.Point(301, 313);
             this.btnDelete.Margin = new System.Windows.Forms.Padding(2);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(56, 19);
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 11;
             this.btnDelete.Text = "Excluir";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -85,10 +87,10 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(249, 314);
+            this.btnSave.Location = new System.Drawing.Point(217, 313);
             this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(56, 19);
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 10;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -105,7 +107,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 293);
+            this.label2.Location = new System.Drawing.Point(11, 265);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(80, 13);
@@ -114,26 +116,46 @@
             // 
             // txtCostValue
             // 
-            this.txtCostValue.Location = new System.Drawing.Point(112, 291);
+            this.txtCostValue.Location = new System.Drawing.Point(98, 262);
             this.txtCostValue.Margin = new System.Windows.Forms.Padding(2);
             this.txtCostValue.Name = "txtCostValue";
             this.txtCostValue.Size = new System.Drawing.Size(114, 20);
             this.txtCostValue.TabIndex = 14;
             // 
-            // dataGridProdutosDaComposicao
+            // listViewProdutosDaComposicao
             // 
-            this.dataGridProdutosDaComposicao.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridProdutosDaComposicao.Location = new System.Drawing.Point(21, 85);
-            this.dataGridProdutosDaComposicao.Name = "dataGridProdutosDaComposicao";
-            this.dataGridProdutosDaComposicao.Size = new System.Drawing.Size(354, 185);
-            this.dataGridProdutosDaComposicao.TabIndex = 16;
+            this.listViewProdutosDaComposicao.Location = new System.Drawing.Point(21, 85);
+            this.listViewProdutosDaComposicao.Name = "listViewProdutosDaComposicao";
+            this.listViewProdutosDaComposicao.Size = new System.Drawing.Size(355, 159);
+            this.listViewProdutosDaComposicao.TabIndex = 16;
+            this.listViewProdutosDaComposicao.UseCompatibleStateImageBehavior = false;
+            // 
+            // btnAddProduct
+            // 
+            this.btnAddProduct.Location = new System.Drawing.Point(217, 260);
+            this.btnAddProduct.Name = "btnAddProduct";
+            this.btnAddProduct.Size = new System.Drawing.Size(75, 23);
+            this.btnAddProduct.TabIndex = 17;
+            this.btnAddProduct.Text = "Adicionar";
+            this.btnAddProduct.UseVisualStyleBackColor = true;
+            // 
+            // btnRemoveProduct
+            // 
+            this.btnRemoveProduct.Location = new System.Drawing.Point(301, 260);
+            this.btnRemoveProduct.Name = "btnRemoveProduct";
+            this.btnRemoveProduct.Size = new System.Drawing.Size(75, 23);
+            this.btnRemoveProduct.TabIndex = 18;
+            this.btnRemoveProduct.Text = "Remover";
+            this.btnRemoveProduct.UseVisualStyleBackColor = true;
             // 
             // FormProdutoComposto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(450, 362);
-            this.Controls.Add(this.dataGridProdutosDaComposicao);
+            this.ClientSize = new System.Drawing.Size(400, 350);
+            this.Controls.Add(this.btnRemoveProduct);
+            this.Controls.Add(this.btnAddProduct);
+            this.Controls.Add(this.listViewProdutosDaComposicao);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtCostValue);
             this.Controls.Add(this.comboBoxProductName);
@@ -145,7 +167,6 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FormProdutoComposto";
             this.Text = "Produto Composto";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridProdutosDaComposicao)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -161,6 +182,8 @@
         private System.Windows.Forms.TextBox txtSellValue;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtCostValue;
-        private System.Windows.Forms.DataGridView dataGridProdutosDaComposicao;
+        private System.Windows.Forms.ListView listViewProdutosDaComposicao;
+        private System.Windows.Forms.Button btnAddProduct;
+        private System.Windows.Forms.Button btnRemoveProduct;
     }
 }

@@ -27,37 +27,33 @@ namespace Controller
 
         public ProdutosDaComposicao Selecionar(int id)
         {
-            return Banco.ProdutosDaComposicao.Where(x => x.FKprodutoComposto == id).First();
+            return Banco.ProdutosDaComposicao.First(x => x.FKprodutoComposto == id);
         }
 
         public void Alterar(ProdutosDaComposicao produtosDaComposicao)
         {
-            ProdutosDaComposicao produtosDaComposicaoSalvar = 
-                Banco.ProdutosDaComposicao
-                .Where(x => x.FKprodutoComposto == produtosDaComposicao.FKprodutoComposto)
-                .Where(x => x.FKprodutoSimples == produtosDaComposicao.FKprodutoSimples).First();
+            var produtosDaComposicaoSalvar = Banco.ProdutosDaComposicao
+                .Where(x => x.FKprodutoComposto == produtosDaComposicao.FKprodutoComposto).First(x => x.FKprodutoSimples == produtosDaComposicao.FKprodutoSimples);
             produtosDaComposicaoSalvar.QuantidadeContidaDoProdutoSimples = produtosDaComposicao.QuantidadeContidaDoProdutoSimples;
             Banco.SaveChanges();
         }
 
         public void Excluir(ProdutosDaComposicao produtosDaComposicao)
         {
-            ProdutosDaComposicao produtosDaComposicaoExcluir =
-                Banco.ProdutosDaComposicao
+            var produtosDaComposicaoExcluir = Banco.ProdutosDaComposicao
                 .Where(x => x.FKprodutoComposto == produtosDaComposicao.FKprodutoComposto)
-                .Where(x => x.FKprodutoSimples == produtosDaComposicao.FKprodutoSimples).First();
+                .First(x => x.FKprodutoSimples == produtosDaComposicao.FKprodutoSimples);
             Banco.Set<ProdutosDaComposicao>().Remove(produtosDaComposicaoExcluir);
             Banco.SaveChanges();
         }
 
         public void Excluir(Produto produto)
         {
-            int count = Banco.ProdutosDaComposicao.Where(x => x.FKprodutoComposto == produto.Id).Count();
+            var count = Banco.ProdutosDaComposicao.Count(x => x.FKprodutoComposto == produto.Id);
             if (count > 0)
             {
-                ProdutosDaComposicao produtosDaComposicaoExcluir =
-                    Banco.ProdutosDaComposicao
-                    .Where(x => x.FKprodutoComposto == produto.Id).First();
+                var produtosDaComposicaoExcluir =
+                    Banco.ProdutosDaComposicao.First(x => x.FKprodutoComposto == produto.Id);
                 Banco.Set<ProdutosDaComposicao>().Remove(produtosDaComposicaoExcluir);
                 Banco.SaveChanges();
             }

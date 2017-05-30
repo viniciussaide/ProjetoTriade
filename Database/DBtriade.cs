@@ -6,9 +6,7 @@ namespace Database
 
     public class DBtriade : DbContext
     {
-        public DBtriade()
-        : base("name=DBtriade")
-        //: base(@"Data Source=SSAVRD055;Initial Catalog=DBtriade; Integrated Security=False; MultipleActiveResultSets=True; User Id=sa;Password=foa2014;")
+        public DBtriade(): base("name=DBtriade")
         {
         }
 
@@ -45,6 +43,5 @@ namespace Database
                         .HasForeignKey(pr => pr.IdRequisicao)
                         .WillCascadeOnDelete(false);
         }
-
     }
 }

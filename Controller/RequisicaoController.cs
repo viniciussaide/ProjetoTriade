@@ -27,12 +27,12 @@ namespace Controller
 
         public Requisicao Selecionar(int id)
         {
-            return Banco.Requisicao.Where(x => x.Id == id).First();
+            return Banco.Requisicao.First(x => x.Id == id);
         }
 
         public void Alterar(Requisicao requisicao)
         {
-            Requisicao requisicaoSalvar = Banco.Requisicao.Where(x => x.Id == requisicao.Id).First();
+            var requisicaoSalvar = Banco.Requisicao.First(x => x.Id == requisicao.Id);
             requisicaoSalvar.Funcionario = requisicao.Funcionario;
             requisicaoSalvar.DataRequisicao = requisicao.DataRequisicao;
             requisicaoSalvar.ProdutosNasRequisicoes = requisicao.ProdutosNasRequisicoes;
@@ -41,7 +41,7 @@ namespace Controller
 
         public void Excluir(Requisicao requisicao)
         {
-            Requisicao requisicaoExcluir = Banco.Requisicao.Where(x => x.Id == requisicao.Id).First();
+            var requisicaoExcluir = Banco.Requisicao.First(x => x.Id == requisicao.Id);
             Banco.Set<Requisicao>().Remove(requisicaoExcluir);
             Banco.SaveChanges();
         }

@@ -27,12 +27,12 @@ namespace UIForms
                 {
                     if (!decimal.TryParse(txtCostValue.Text, out decimal txtCost))
                     {
-                        MessageBox.Show("Valor de custo digitado não é válido", "Valor incorreto",
+                        MessageBox.Show(@"Valor de custo digitado não é válido", @"Valor incorreto",
                             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     }
                     else if (!decimal.TryParse(txtSellValue.Text, out decimal txtSell))
                     {
-                        MessageBox.Show("Valor de venda digitado não é válido", "Valor incorreto",
+                        MessageBox.Show(@"Valor de venda digitado não é válido", @"Valor incorreto",
                             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     }
                     else
@@ -41,7 +41,7 @@ namespace UIForms
                         produto.PrecoCusto = txtCost;
                         produto.PrecoVenda = txtSell;
                         produtosController.Alterar(produto);
-                        MessageBox.Show("Produto alterado com sucesso", "Sucesso ao alterar",
+                        MessageBox.Show(@"Produto alterado com sucesso", @"Sucesso ao alterar",
                             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     }
 
@@ -50,12 +50,12 @@ namespace UIForms
                 {
                     if (!decimal.TryParse(txtCostValue.Text, out decimal txtCost))
                     {
-                        MessageBox.Show("Valor de custo digitado não é válido", "Valor incorreto",
+                        MessageBox.Show(@"Valor de custo digitado não é válido", @"Valor incorreto",
                             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     }
                     else if (!decimal.TryParse(txtSellValue.Text, out decimal txtSell))
                     {
-                        MessageBox.Show("Valor de venda digitado não é válido", "Valor incorreto",
+                        MessageBox.Show(@"Valor de venda digitado não é válido", @"Valor incorreto",
                             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     }
                     else
@@ -67,7 +67,7 @@ namespace UIForms
                             PrecoVenda = txtSell
                         };
                         produtosController.Salvar(produtoSimples);
-                        MessageBox.Show("Novo produto salvo com sucesso!", "Sucesso ao salvar",
+                        MessageBox.Show(@"Novo produto salvo com sucesso!", @"Sucesso ao salvar",
                             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         comboBoxProductName.DataSource = produtosController.Listar();
                         comboBoxProductName.SelectedItem = produtoSimples;
@@ -77,7 +77,7 @@ namespace UIForms
             }
             else
             {
-                MessageBox.Show("Existem campos vazios, por favor preencha todos os campos", "Campos vazios",
+                MessageBox.Show(@"Existem campos vazios, por favor preencha todos os campos", @"Campos vazios",
                     MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
 
@@ -93,20 +93,20 @@ namespace UIForms
                 {
                     Produto produto = produtosController.Selecionar(id);
                     produtosController.Excluir(produto);
-                    MessageBox.Show("Produto excluído com sucesso", "Sucesso ao excluir",
+                    MessageBox.Show(@"Produto excluído com sucesso", @"Sucesso ao excluir",
                         MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     comboBoxProductName.DataSource = produtosController.Listar();
                     comboBoxProductName.SelectedIndex = -1;
                 }
                 else
                 {
-                    MessageBox.Show("Produto selecionado não existe", "Produto não existe",
+                    MessageBox.Show(@"Produto selecionado não existe", @"Produto não existe",
                         MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 }
             }
             else
             {
-                MessageBox.Show("Selecione um produto antes de excluir", "Produto não selecionado",
+                MessageBox.Show(@"Selecione um produto antes de excluir", @"Produto não selecionado",
                     MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
 
