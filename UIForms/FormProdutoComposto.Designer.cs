@@ -119,6 +119,7 @@
             this.txtCostValue.Location = new System.Drawing.Point(98, 262);
             this.txtCostValue.Margin = new System.Windows.Forms.Padding(2);
             this.txtCostValue.Name = "txtCostValue";
+            this.txtCostValue.ReadOnly = true;
             this.txtCostValue.Size = new System.Drawing.Size(114, 20);
             this.txtCostValue.TabIndex = 14;
             // 
@@ -138,6 +139,7 @@
             this.btnAddProduct.TabIndex = 17;
             this.btnAddProduct.Text = "Adicionar";
             this.btnAddProduct.UseVisualStyleBackColor = true;
+            this.btnAddProduct.Click += new System.EventHandler(this.btnAddProduct_Click);
             // 
             // btnRemoveProduct
             // 
@@ -147,6 +149,7 @@
             this.btnRemoveProduct.TabIndex = 18;
             this.btnRemoveProduct.Text = "Remover";
             this.btnRemoveProduct.UseVisualStyleBackColor = true;
+            this.btnRemoveProduct.Click += new System.EventHandler(this.btnRemoveProduct_Click);
             // 
             // FormProdutoComposto
             // 

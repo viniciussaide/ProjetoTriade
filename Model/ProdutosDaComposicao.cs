@@ -22,7 +22,7 @@ namespace Model
 
         public int QuantidadeContidaDoProdutoSimples { get; set; }
 
-        public virtual ICollection<ProdutoComposto> ListaProdutoComposto { get; set; }
-        public virtual ICollection<ProdutoSimples> ListaProdutoSimples { get; set; }
+        //public virtual ICollection<ProdutoComposto> ListaProdutoComposto { get; set; }
+        //public virtual ICollection<ProdutoSimples> ListaProdutoSimples { get; set; }
     }
 }

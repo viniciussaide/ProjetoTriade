@@ -13,7 +13,7 @@ namespace UIForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormProdutoComposto());
+            Application.Run(new FormPrincipal());
         }
     }
 }

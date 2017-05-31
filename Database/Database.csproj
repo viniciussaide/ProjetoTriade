@@ -50,13 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBtriade.cs" />
-    <Compile Include="Migrations\201705310235345_BancoInicial.cs" />
-    <Compile Include="Migrations\201705310235345_BancoInicial.Designer.cs">
-      <DependentUpon>201705310235345_BancoInicial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705310238442_BancoInicial1.cs" />
-    <Compile Include="Migrations\201705310238442_BancoInicial1.Designer.cs">
-      <DependentUpon>201705310238442_BancoInicial1.cs</DependentUpon>
+    <Compile Include="Migrations\201705311138289_BancoInicial.cs" />
+    <Compile Include="Migrations\201705311138289_BancoInicial.Designer.cs">
+      <DependentUpon>201705311138289_BancoInicial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,11 +71,8 @@
     <Content Include="BancoInicial.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201705310235345_BancoInicial.resx">
-      <DependentUpon>201705310235345_BancoInicial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705310238442_BancoInicial1.resx">
-      <DependentUpon>201705310238442_BancoInicial1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201705311138289_BancoInicial.resx">
+      <DependentUpon>201705311138289_BancoInicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

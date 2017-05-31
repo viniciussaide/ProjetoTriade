@@ -4,7 +4,7 @@ namespace Model
 {
     public class ProdutoComposto : Produto
     {
-        public ProdutosDaComposicao ProdutosDaComposicao { get; set; }
-        //public virtual ICollection<ProdutosDaComposicao> ListaProdutosDaComposicao { get; set; }
+        //public ProdutosDaComposicao ProdutosDaComposicao { get; set; }
+        public virtual ICollection<ProdutosDaComposicao> ProdutosDaComposicao { get; set; }
     }
 }

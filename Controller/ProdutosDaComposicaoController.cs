@@ -30,6 +30,11 @@ namespace Controller
             return Banco.ProdutosDaComposicao.Where(x => x.FKprodutoComposto == id);
         }
 
+        public int TotalRelacionamentosProdutoSimples(int id)
+        {
+            return Banco.ProdutosDaComposicao.Count(x => x.FKprodutoSimples == id);
+        }
+
         public void Alterar(ProdutosDaComposicao produtosDaComposicao)
         {
             var produtosDaComposicaoSalvar = Banco.ProdutosDaComposicao
@@ -53,8 +58,8 @@ namespace Controller
             if (count > 0)
             {
                 var produtosDaComposicaoExcluir =
-                    Banco.ProdutosDaComposicao.First(x => x.FKprodutoComposto == produto.Id);
-                Banco.Set<ProdutosDaComposicao>().Remove(produtosDaComposicaoExcluir);
+                    Banco.ProdutosDaComposicao.Where(x => x.FKprodutoComposto == produto.Id);
+                Banco.ProdutosDaComposicao.RemoveRange(produtosDaComposicaoExcluir);
                 Banco.SaveChanges();
             }
         }

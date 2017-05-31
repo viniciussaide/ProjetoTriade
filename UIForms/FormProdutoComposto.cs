@@ -1,13 +1,8 @@
 ﻿using Controller;
-using Database;
 using Model;
 using System;
-using System.Data;
+using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Linq;
-using System.ComponentModel;
-using System.Data.SqlClient;
-using System.Configuration;
 
 namespace UIForms
 {
@@ -17,10 +12,12 @@ namespace UIForms
         {
             InitializeComponent();
             ProdutosController produtosController = new ProdutosController();
+
             comboBoxProductName.DataSource = produtosController.ListarProdutosCompostos();
             comboBoxProductName.DisplayMember = "Nome";
             comboBoxProductName.ValueMember = "Id";
             comboBoxProductName.SelectedIndex = -1;
+
             listViewProdutosDaComposicao.Columns.Add("Produto");
             listViewProdutosDaComposicao.Columns.Add("Quantidade");
             listViewProdutosDaComposicao.View = View.Details;
@@ -30,64 +27,79 @@ namespace UIForms
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
+            ProdutoComposto produtoComposto = new ProdutoComposto();
             ProdutosController produtosController = new ProdutosController();
+            ProdutosDaComposicaoController produtosDaComposicaoController = new ProdutosDaComposicaoController();
+
             if (txtCostValue.Text != "" || txtSellValue.Text != "" || comboBoxProductName.Text != "")
             {
-                if (int.TryParse(comboBoxProductName.SelectedValue.ToString(), out int id))
+                if (!decimal.TryParse(txtCostValue.Text, out decimal txtCost))
                 {
-                    if (produtosController.Selecionar(id) != null)
+                    MessageBox.Show(@"Valor de custo digitado não é válido", @"Valor incorreto",
+                        MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                else if (!decimal.TryParse(txtSellValue.Text, out decimal txtSell))
+                {
+                    MessageBox.Show(@"Valor de venda digitado não é válido", @"Valor incorreto",
+                        MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                else if (comboBoxProductName.SelectedIndex != -1)
+                {
+                    if (int.TryParse(comboBoxProductName.SelectedValue.ToString(), out int id))
                     {
-                        if (!decimal.TryParse(txtCostValue.Text, out decimal txtCost))
+                        if (produtosController.Selecionar(id) != null)
                         {
-                            MessageBox.Show(@"Valor de custo digitado não é válido", @"Valor incorreto",
-                                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        }
-                        else if (!decimal.TryParse(txtSellValue.Text, out decimal txtSell))
-                        {
-                            MessageBox.Show(@"Valor de venda digitado não é válido", @"Valor incorreto",
-                                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        }
-                        else
-                        {
-                            ProdutoComposto produtoComposto = produtosController.SelecionarProdutosCompostos(id);
+                            produtoComposto = produtosController.SelecionarProdutosCompostos(id);
+                            produtosDaComposicaoController.Excluir(produtoComposto);
+
                             produtoComposto.PrecoCusto = txtCost;
                             produtoComposto.PrecoVenda = txtSell;
                             produtosController.Alterar(produtoComposto);
-                            MessageBox.Show(@"Produto alterado com sucesso", @"Sucesso ao alterar",
-                                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                            comboBoxProductName.DataSource = produtosController.ListarProdutosCompostos();
-                            comboBoxProductName.SelectedItem = produtoComposto;
-                        }
+                            for (int i = 0; i < listViewProdutosDaComposicao.Items.Count; i++)
+                            {
+                                ProdutosDaComposicao produtosDaComposicao = new ProdutosDaComposicao();
+                                ProdutoSimples produtoSimples = (ProdutoSimples)listViewProdutosDaComposicao.Items[i].Tag;
 
-                    }
-                    else
-                    {
-                        if (!decimal.TryParse(txtCostValue.Text, out decimal txtCost))
-                        {
-                            MessageBox.Show(@"Valor de custo digitado não é válido", @"Valor incorreto",
-                                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        }
-                        else if (!decimal.TryParse(txtSellValue.Text, out decimal txtSell))
-                        {
-                            MessageBox.Show(@"Valor de venda digitado não é válido", @"Valor incorreto",
+                                produtosDaComposicao.FKprodutoComposto = produtoComposto.Id;
+                                produtosDaComposicao.FKprodutoSimples = produtoSimples.Id;
+                                produtosDaComposicao.QuantidadeContidaDoProdutoSimples =
+                                    int.Parse(listViewProdutosDaComposicao.Items[i].SubItems[1].Text);
+
+                                produtosDaComposicaoController.Salvar(produtosDaComposicao);
+                            }
+                            MessageBox.Show(@"Produto alterado com sucesso", @"Sucesso ao alterar",
                                 MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                         }
                         else
                         {
-                            ProdutoComposto produtoComposto = new ProdutoComposto()
-                            {
-                                Nome = comboBoxProductName.Text,
-                                PrecoCusto = txtCost,
-                                PrecoVenda = txtSell
-                            };
-                            produtosController.Salvar(produtoComposto);
-                            MessageBox.Show(@"Novo produto salvo com sucesso!", @"Sucesso ao salvar",
+                            MessageBox.Show(@"Produto a ser alterado não encontrado", @"Erro ao alterar",
                                 MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                            comboBoxProductName.DataSource = produtosController.ListarProdutosCompostos();
-                            comboBoxProductName.SelectedItem = produtoComposto;
                         }
                     }
                 }
+                else
+                {
+                    produtoComposto.Nome = comboBoxProductName.Text;
+                    produtoComposto.PrecoCusto = txtCost;
+                    produtoComposto.PrecoVenda = txtSell;
+                    produtosController.Salvar(produtoComposto);
+                    for (int i = 0; i < listViewProdutosDaComposicao.Items.Count; i++)
+                    {
+                        ProdutosDaComposicao produtosDaComposicao = new ProdutosDaComposicao();
+                        ProdutoSimples produtoSimples = (ProdutoSimples)listViewProdutosDaComposicao.Items[i].Tag;
+
+                        produtosDaComposicao.FKprodutoComposto = produtoComposto.Id;
+                        produtosDaComposicao.FKprodutoSimples = produtoSimples.Id;
+                        produtosDaComposicao.QuantidadeContidaDoProdutoSimples =
+                            int.Parse(listViewProdutosDaComposicao.Items[i].SubItems[1].Text);
+
+                        produtosDaComposicaoController.Salvar(produtosDaComposicao);
+                    }
+                    MessageBox.Show(@"Novo produto salvo com sucesso!", @"Sucesso ao salvar",
+                        MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                comboBoxProductName.DataSource = produtosController.ListarProdutosCompostos();
+                comboBoxProductName.SelectedItem = produtoComposto;
             }
             else
             {
@@ -112,6 +124,8 @@ namespace UIForms
                         MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     comboBoxProductName.DataSource = produtosController.ListarProdutosCompostos();
                     comboBoxProductName.SelectedIndex = -1;
+                    comboBoxProductName.Text = "";
+                    txtSellValue.Text = "0,00";
                 }
                 else
                 {
@@ -132,35 +146,94 @@ namespace UIForms
             if (comboBoxProductName.SelectedItem != null)
             {
                 int.TryParse(comboBoxProductName.SelectedValue.ToString(), out int id);
-                ProdutoComposto produto = produtosController.SelecionarProdutosCompostos(id);
-                if (produto != null)
+                ProdutoComposto produtoComposto = produtosController.SelecionarProdutosCompostos(id);
+                IList<ProdutoSimples> listaProdutoSimples = produtosController.ListarProdutosSimples();
+                if (produtoComposto != null)
                 {
-                    txtCostValue.Text = produto.PrecoCusto.ToString();
-                    txtSellValue.Text = produto.PrecoVenda.ToString();
-                    //var composicao = produtosController.SelecionarComposicao(produto);
-                    //ProdutosDaComposicaoController produtosDaComposicaoController = new ProdutosDaComposicaoController();
-                    //listViewProdutosDaComposicao.BeginUpdate();
-                    //listViewProdutosDaComposicao.Items.Clear();
-                    //foreach (Produto produtoContido in produto.ProdutosDaComposicao)
-                    //{
-                    //    var item = new ListViewItem();
-
-                    //    item.Tag = produtoContido;
-
-                    //    listViewProdutosDaComposicao.Items.Add(item);
-                    //}
-                    //listViewProdutosDaComposicao.EndUpdate();
+                    decimal totalCusto = 0;
+                    txtSellValue.Text = produtoComposto.PrecoVenda.ToString();
+                    listViewProdutosDaComposicao.Items.Clear();
+                    foreach (ProdutosDaComposicao produtosDaComposicao in produtoComposto.ProdutosDaComposicao)
+                    {
+                        string[] row = { produtosDaComposicao.ProdutoSimples.Nome, produtosDaComposicao.QuantidadeContidaDoProdutoSimples.ToString() };
+                        var item = new ListViewItem(row);
+                        item.Tag = produtosDaComposicao.ProdutoSimples;
+                        listViewProdutosDaComposicao.Items.Add(item);
+                        decimal valorCusto = produtosDaComposicao.ProdutoSimples.PrecoCusto *
+                                             produtosDaComposicao.QuantidadeContidaDoProdutoSimples;
+                        totalCusto += valorCusto;
+                    }
+                    txtCostValue.Text = totalCusto.ToString();
                 }
                 else
                 {
+                    listViewProdutosDaComposicao.Items.Clear();
                     txtCostValue.Text = "0,00";
                     txtSellValue.Text = "0,00";
                 }
             }
             else
             {
+                listViewProdutosDaComposicao.Items.Clear();
                 txtCostValue.Text = "0,00";
                 txtSellValue.Text = "0,00";
+            }
+        }
+
+        private void btnRemoveProduct_Click(object sender, EventArgs e)
+        {
+            ProdutoSimples produtoSimples = new ProdutoSimples();
+            decimal totalCusto = 0;
+            foreach (ListViewItem eachItem in listViewProdutosDaComposicao.SelectedItems)
+            {
+                listViewProdutosDaComposicao.Items.Remove(eachItem);
+            }
+            for (int i = 0; i < listViewProdutosDaComposicao.Items.Count; i++)
+            {
+                produtoSimples = (ProdutoSimples)listViewProdutosDaComposicao.Items[i].Tag;
+                decimal valorCusto = produtoSimples.PrecoCusto *
+                                     int.Parse(listViewProdutosDaComposicao.Items[i].SubItems[1].Text);
+                totalCusto += valorCusto;
+            }
+            if (totalCusto == 0)
+            {
+                txtCostValue.Text = "0,00";
+            }
+            else
+            {
+                txtCostValue.Text = totalCusto.ToString();
+            }
+        }
+
+        private void btnAddProduct_Click(object sender, EventArgs e)
+        {
+            using (var form = new FormAddProductToComposition())
+            {
+                var result = form.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    ProdutosController produtosController = new ProdutosController();
+                    ProdutoSimples produtoSimples = new ProdutoSimples();
+                    decimal totalCusto = 0;
+                    int productId = form.productId;
+                    int quantity = form.quantidade;
+
+                    produtoSimples = produtosController.SelecionarProdutosSimples(productId);
+
+                    string[] row = { produtoSimples.Nome, quantity.ToString() };
+                    var item = new ListViewItem(row);
+
+                    item.Tag = produtoSimples;
+                    listViewProdutosDaComposicao.Items.Add(item);
+                    for (int i = 0; i < listViewProdutosDaComposicao.Items.Count; i++)
+                    {
+                        produtoSimples = (ProdutoSimples)listViewProdutosDaComposicao.Items[i].Tag;
+                        decimal valorCusto = produtoSimples.PrecoCusto *
+                                             int.Parse(listViewProdutosDaComposicao.Items[i].SubItems[1].Text);
+                        totalCusto += valorCusto;
+                    }
+                    txtCostValue.Text = totalCusto.ToString();
+                }
             }
         }
     }

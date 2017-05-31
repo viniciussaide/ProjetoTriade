@@ -20,31 +20,39 @@ namespace UIForms
         private void BtnSave_Click(object sender, EventArgs e)
         {
             ProdutosController produtosController = new ProdutosController();
-            int id = int.Parse(comboBoxProductName.SelectedValue.ToString());
+            //int id = int.Parse(comboBoxProductName.SelectedValue.ToString());
             if (txtCostValue.Text !="" || txtSellValue.Text != "" || comboBoxProductName.Text !="")
             {
-                if (produtosController.Selecionar(id) != null)
+                if (comboBoxProductName.SelectedItem != null)
                 {
-                    if (!decimal.TryParse(txtCostValue.Text, out decimal txtCost))
+                    if (int.TryParse(comboBoxProductName.SelectedValue.ToString(), out int id))
                     {
-                        MessageBox.Show(@"Valor de custo digitado não é válido", @"Valor incorreto",
-                            MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    }
-                    else if (!decimal.TryParse(txtSellValue.Text, out decimal txtSell))
-                    {
-                        MessageBox.Show(@"Valor de venda digitado não é válido", @"Valor incorreto",
-                            MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    }
-                    else
-                    {
-                        Produto produto = produtosController.Selecionar(id);
-                        produto.PrecoCusto = txtCost;
-                        produto.PrecoVenda = txtSell;
-                        produtosController.Alterar(produto);
-                        MessageBox.Show(@"Produto alterado com sucesso", @"Sucesso ao alterar",
-                            MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    }
+                        if (produtosController.Selecionar(id) != null)
+                        {
+                            if (!decimal.TryParse(txtCostValue.Text, out decimal txtCost))
+                            {
+                                MessageBox.Show(@"Valor de custo digitado não é válido", @"Valor incorreto",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            }
+                            else if (!decimal.TryParse(txtSellValue.Text, out decimal txtSell))
+                            {
+                                MessageBox.Show(@"Valor de venda digitado não é válido", @"Valor incorreto",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            }
+                            else
+                            {
+                                ProdutoSimples produtoSimples = produtosController.SelecionarProdutosSimples(id);
+                                produtoSimples.PrecoCusto = txtCost;
+                                produtoSimples.PrecoVenda = txtSell;
+                                produtosController.Alterar(produtoSimples);
+                                MessageBox.Show(@"Produto alterado com sucesso", @"Sucesso ao alterar",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                                comboBoxProductName.DataSource = produtosController.ListarProdutosSimples();
+                                comboBoxProductName.SelectedItem = produtoSimples;
+                            }
 
+                        }
+                    }
                 }
                 else
                 {
@@ -69,11 +77,10 @@ namespace UIForms
                         produtosController.Salvar(produtoSimples);
                         MessageBox.Show(@"Novo produto salvo com sucesso!", @"Sucesso ao salvar",
                             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        comboBoxProductName.DataSource = produtosController.Listar();
+                        comboBoxProductName.DataSource = produtosController.ListarProdutosSimples();
                         comboBoxProductName.SelectedItem = produtoSimples;
                     }
                 }
-
             }
             else
             {
@@ -91,12 +98,23 @@ namespace UIForms
             {
                 if (produtosController.Selecionar(id) != null)
                 {
-                    Produto produto = produtosController.Selecionar(id);
-                    produtosController.Excluir(produto);
-                    MessageBox.Show(@"Produto excluído com sucesso", @"Sucesso ao excluir",
-                        MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    comboBoxProductName.DataSource = produtosController.Listar();
-                    comboBoxProductName.SelectedIndex = -1;
+                    ProdutosDaComposicaoController produtosDaComposicaoController =
+                        new ProdutosDaComposicaoController();
+                    int totalRelacionamentos = produtosDaComposicaoController.TotalRelacionamentosProdutoSimples(id);
+                    if (totalRelacionamentos > 0)
+                    {
+                        MessageBox.Show(@"Existem "+ totalRelacionamentos + @" produtos compostos que contém o produto. Exclua estes relacionamentos antes de excluir o produto",
+                            @"Produto contido em Composições",MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    }
+                    else
+                    {
+                        ProdutoSimples produtoSimples = produtosController.SelecionarProdutosSimples(id);
+                        produtosController.Excluir(produtoSimples);
+                        MessageBox.Show(@"Produto excluído com sucesso", @"Sucesso ao excluir",
+                            MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        comboBoxProductName.DataSource = produtosController.ListarProdutosSimples();
+                        comboBoxProductName.SelectedItem = -1;
+                    }
                 }
                 else
                 {
@@ -109,23 +127,30 @@ namespace UIForms
                 MessageBox.Show(@"Selecione um produto antes de excluir", @"Produto não selecionado",
                     MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             }
-
         }
 
         private void ComboBoxProductName_TextChanged(object sender, EventArgs e)
         {
             ProdutosController produtosController = new ProdutosController();
-            int id = int.Parse(comboBoxProductName.SelectedValue.ToString());
-            if (produtosController.SelecionarProdutosSimples(id) != null)
+            if (comboBoxProductName.SelectedItem != null)
             {
-                Produto produto = produtosController.Selecionar(id);
-                txtCostValue.Text = produto.PrecoCusto.ToString();
-                txtSellValue.Text = produto.PrecoVenda.ToString();
+                int.TryParse(comboBoxProductName.SelectedValue.ToString(), out int id);
+                ProdutoSimples produtoSimples = produtosController.SelecionarProdutosSimples(id);
+                if (produtoSimples != null)
+                {
+                    txtCostValue.Text = produtoSimples.PrecoCusto.ToString();
+                    txtSellValue.Text = produtoSimples.PrecoVenda.ToString();
+                }
+                else
+                {
+                    txtCostValue.Text = "0,00";
+                    txtSellValue.Text = "0,00";
+                }
             }
             else
             {
-                txtCostValue.Text = "";
-                txtSellValue.Text = "";
+                txtCostValue.Text = "0,00";
+                txtSellValue.Text = "0,00";
             }
         }
     }

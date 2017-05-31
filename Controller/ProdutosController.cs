@@ -82,13 +82,14 @@ namespace Controller
             produtoSalvar.Nome = produtoComposto.Nome;
             produtoSalvar.PrecoCusto = produtoComposto.PrecoCusto;
             produtoSalvar.PrecoVenda = produtoComposto.PrecoVenda;
+            produtoSalvar.ProdutosDaComposicao = produtoComposto.ProdutosDaComposicao;
             Banco.SaveChanges();
         }
 
         public void Excluir(Produto produto)
         {
-            var produtoExcluir = Banco.Produtos.First(x => x.Id == produto.Id);
-            Banco.Set<Produto>().Remove(produtoExcluir);
+            var produtoExcluir = Banco.Produtos.Where(x => x.Id == produto.Id);
+            Banco.Produtos.RemoveRange(produtoExcluir);
             Banco.SaveChanges();
         }
     }

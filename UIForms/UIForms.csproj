@@ -53,6 +53,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormAddProductToComposition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddProductToComposition.Designer.cs">
+      <DependentUpon>FormAddProductToComposition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormAddProductToRequest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddProductToRequest.Designer.cs">
+      <DependentUpon>FormAddProductToRequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPrincipal.Designer.cs">
+      <DependentUpon>FormPrincipal.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormProdutoComposto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,13 +83,31 @@
     <Compile Include="FormProdutoSimples.Designer.cs">
       <DependentUpon>FormProdutoSimples.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormRequisicao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRequisicao.Designer.cs">
+      <DependentUpon>FormRequisicao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormAddProductToComposition.resx">
+      <DependentUpon>FormAddProductToComposition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddProductToRequest.resx">
+      <DependentUpon>FormAddProductToRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPrincipal.resx">
+      <DependentUpon>FormPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormProdutoComposto.resx">
       <DependentUpon>FormProdutoComposto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormProdutoSimples.resx">
       <DependentUpon>FormProdutoSimples.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRequisicao.resx">
+      <DependentUpon>FormRequisicao.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
