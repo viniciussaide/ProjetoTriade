@@ -25,9 +25,9 @@ namespace Controller
             return Banco.ProdutosDaComposicao.ToList();
         }
 
-        public ProdutosDaComposicao Selecionar(int id)
+        public IQueryable<ProdutosDaComposicao> Selecionar(int id)
         {
-            return Banco.ProdutosDaComposicao.First(x => x.FKprodutoComposto == id);
+            return Banco.ProdutosDaComposicao.Where(x => x.FKprodutoComposto == id);
         }
 
         public void Alterar(ProdutosDaComposicao produtosDaComposicao)

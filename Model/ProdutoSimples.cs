@@ -5,8 +5,6 @@ namespace Model
 {
     public class ProdutoSimples : Produto
     {
-        public int Quantidade { get; set; }
-
-        public virtual ICollection<ProdutosDaComposicao> ProdutosDaComposicao { get; set; }
+        //public virtual ICollection<ProdutosDaComposicao> ProdutosDaComposicao { get; set; }
     }
 }

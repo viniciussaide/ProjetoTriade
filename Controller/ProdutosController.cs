@@ -19,47 +19,44 @@ namespace Controller
             Banco.Produtos.Add(produtoSimples);
             Banco.SaveChanges();
         }
-
         public void Salvar(ProdutoComposto produtoComposto)
         {
             Banco.Produtos.Add(produtoComposto);
             Banco.SaveChanges();
         }
-
         public IList<Produto> Listar()
         {
             return Banco.Produtos.ToList();
         }
-
         public IList<ProdutoComposto> ListarProdutosCompostos()
         {
             return Banco.ProdutosCompostos.ToList();
         }
-
         public IList<ProdutoSimples> ListarProdutosSimples()
         {
             return Banco.ProdutosSimples.ToList();
         }
-
+        public Produto Selecionar(int id)
+        {
+            return Banco.Produtos.FirstOrDefault(x => x.Id == id);
+        }
+        public Produto Selecionar(string nome)
+        {
+            return Banco.Produtos.FirstOrDefault(x => x.Nome == nome);
+        }
         public ProdutoSimples SelecionarProdutosSimples(int id)
         {
             return Banco.ProdutosSimples.FirstOrDefault(x => x.Id == id);
         }
-
         public ProdutoComposto SelecionarProdutosCompostos(int id)
         {
             return Banco.ProdutosCompostos.FirstOrDefault(x => x.Id == id);
         }
 
-        public Produto Selecionar(int id)
-        {
-            return Banco.Produtos.FirstOrDefault(x => x.Id == id);
-        }
-
-        public Produto Selecionar(string nome)
-        {
-            return Banco.Produtos.FirstOrDefault(x => x.Nome == nome);
-        }
+        //public IList<Produto> SelecionarComposicao(Produto produto)
+        //{
+        //    return Banco.Produtos.Include("ProdutoSimples").Where(x => x.Id == produto.Id).ToList();
+        //}
 
         public void Alterar(Produto produto)
         {
@@ -76,7 +73,6 @@ namespace Controller
             produtoSalvar.Nome = produtoSimples.Nome;
             produtoSalvar.PrecoCusto = produtoSimples.PrecoCusto;
             produtoSalvar.PrecoVenda = produtoSimples.PrecoVenda;
-            produtoSalvar.Quantidade = produtoSimples.Quantidade;
             Banco.SaveChanges();
         }
 

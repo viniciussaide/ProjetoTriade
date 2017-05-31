@@ -132,11 +132,24 @@ namespace UIForms
             if (comboBoxProductName.SelectedItem != null)
             {
                 int.TryParse(comboBoxProductName.SelectedValue.ToString(), out int id);
-                Produto produto = produtosController.Selecionar(id);
+                ProdutoComposto produto = produtosController.SelecionarProdutosCompostos(id);
                 if (produto != null)
                 {
                     txtCostValue.Text = produto.PrecoCusto.ToString();
                     txtSellValue.Text = produto.PrecoVenda.ToString();
+                    //var composicao = produtosController.SelecionarComposicao(produto);
+                    //ProdutosDaComposicaoController produtosDaComposicaoController = new ProdutosDaComposicaoController();
+                    //listViewProdutosDaComposicao.BeginUpdate();
+                    //listViewProdutosDaComposicao.Items.Clear();
+                    //foreach (Produto produtoContido in produto.ProdutosDaComposicao)
+                    //{
+                    //    var item = new ListViewItem();
+
+                    //    item.Tag = produtoContido;
+
+                    //    listViewProdutosDaComposicao.Items.Add(item);
+                    //}
+                    //listViewProdutosDaComposicao.EndUpdate();
                 }
                 else
                 {
