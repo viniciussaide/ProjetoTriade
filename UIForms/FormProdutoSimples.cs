@@ -7,6 +7,7 @@ namespace UIForms
 {
     public partial class FormProdutoSimples : Form
     {
+        //Formulário que controla o CRUD de produtos simples
         public FormProdutoSimples()
         {
             InitializeComponent();
@@ -17,18 +18,24 @@ namespace UIForms
             comboBoxProductName.SelectedIndex = -1;
         }
 
+        //Botão Salvar
         private void BtnSave_Click(object sender, EventArgs e)
         {
             ProdutosController produtosController = new ProdutosController();
-            //int id = int.Parse(comboBoxProductName.SelectedValue.ToString());
+
+            //Ignorar inserção, alteração e exclusão cado campos estejam vazios
             if (txtCostValue.Text !="" || txtSellValue.Text != "" || comboBoxProductName.Text !="")
             {
+                //Condição que determina se produto já existia ou será criado um novo produto
                 if (comboBoxProductName.SelectedItem != null)
                 {
+                    //Conversão id de um produto selecionado em (int)
                     if (int.TryParse(comboBoxProductName.SelectedValue.ToString(), out int id))
                     {
+                        //Verificação se produto realmente existe no banco
                         if (produtosController.Selecionar(id) != null)
                         {
+                            //Conversão de texto para decimal dos preços de custo e de venda
                             if (!decimal.TryParse(txtCostValue.Text, out decimal txtCost))
                             {
                                 MessageBox.Show(@"Valor de custo digitado não é válido", @"Valor incorreto",
@@ -41,6 +48,7 @@ namespace UIForms
                             }
                             else
                             {
+                                //Atualização de um produto existente
                                 ProdutoSimples produtoSimples = produtosController.SelecionarProdutosSimples(id);
                                 produtoSimples.PrecoCusto = txtCost;
                                 produtoSimples.PrecoVenda = txtSell;
@@ -56,6 +64,7 @@ namespace UIForms
                 }
                 else
                 {
+                    //Conversão de texto para decimal dos preços de custo e de venda
                     if (!decimal.TryParse(txtCostValue.Text, out decimal txtCost))
                     {
                         MessageBox.Show(@"Valor de custo digitado não é válido", @"Valor incorreto",
@@ -68,6 +77,7 @@ namespace UIForms
                     }
                     else
                     {
+                        //Inserção de um novo produto no banco
                         ProdutoSimples produtoSimples = new ProdutoSimples()
                         {
                             Nome = comboBoxProductName.Text,
@@ -90,17 +100,22 @@ namespace UIForms
 
         }
 
+        //Botão Excluir
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             ProdutosController produtosController = new ProdutosController();
             int id = int.Parse(comboBoxProductName.SelectedValue.ToString());
+            //Condição caso queiram excluir um produto antes de selecionar o nome do mesmo
             if (comboBoxProductName.Text != "")
             {
+                //Verificação se o produto selecionado existe no banco
                 if (produtosController.Selecionar(id) != null)
                 {
                     ProdutosDaComposicaoController produtosDaComposicaoController =
                         new ProdutosDaComposicaoController();
                     int totalRelacionamentos = produtosDaComposicaoController.TotalRelacionamentosProdutoSimples(id);
+
+                    //Verificação caso queira excluir um produto simples que tem relacionamentos com produtos compostos
                     if (totalRelacionamentos > 0)
                     {
                         MessageBox.Show(@"Existem "+ totalRelacionamentos + @" produtos compostos que contém o produto. Exclua estes relacionamentos antes de excluir o produto",
@@ -108,6 +123,7 @@ namespace UIForms
                     }
                     else
                     {
+                        //Exclusão do produto
                         ProdutoSimples produtoSimples = produtosController.SelecionarProdutosSimples(id);
                         produtosController.Excluir(produtoSimples);
                         MessageBox.Show(@"Produto excluído com sucesso", @"Sucesso ao excluir",
@@ -129,26 +145,32 @@ namespace UIForms
             }
         }
 
+        //Combobox para seleção ou inserção do nome de um produto
         private void ComboBoxProductName_TextChanged(object sender, EventArgs e)
         {
             ProdutosController produtosController = new ProdutosController();
+            //Verifica se produto existe na lista
             if (comboBoxProductName.SelectedItem != null)
             {
                 int.TryParse(comboBoxProductName.SelectedValue.ToString(), out int id);
                 ProdutoSimples produtoSimples = produtosController.SelecionarProdutosSimples(id);
+                //Verifica se produto existe no banco
                 if (produtoSimples != null)
                 {
+                    //Caso exista preencha o preço de custo e preço de venda atual
                     txtCostValue.Text = produtoSimples.PrecoCusto.ToString();
                     txtSellValue.Text = produtoSimples.PrecoVenda.ToString();
                 }
                 else
                 {
+                    //Se não existir zerar os preços
                     txtCostValue.Text = "0,00";
                     txtSellValue.Text = "0,00";
                 }
             }
             else
             {
+                //Se não existir zerar os preços
                 txtCostValue.Text = "0,00";
                 txtSellValue.Text = "0,00";
             }

@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace UIForms
 {
     public partial class FormPrincipal : Form
     {
+        //Formulário principal para seleção da função a ser executada
         public FormPrincipal()
         {
             InitializeComponent();

@@ -1,6 +1,6 @@
 ﻿namespace UIForms
 {
-    partial class FormAddProductToRequest
+    partial class FormAddProduct
     {
         /// <summary>
         /// Required designer variable.

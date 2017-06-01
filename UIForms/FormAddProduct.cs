@@ -1,36 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
-using Controller;
+using Model;
 
 namespace UIForms
 {
-    public partial class FormAddProductToRequest : Form
+    public partial class FormAddProduct : Form
     {
         public int productId { get; set; }
         public int quantidade { get; set; }
-        public FormAddProductToRequest()
+
+        //Método construtor
+        //Formulário se altera de acordo com a forma que foi chamado
+        //Assim o mesmo formulário pode retornar produtos simples ou todos os produtos
+        public FormAddProduct(IList<Produto> listaDeProdutos)
         {
             InitializeComponent();
-            ProdutosController produtosController = new ProdutosController();
-            comboBoxProductName.DataSource = produtosController.Listar();
+            comboBoxProductName.DataSource = listaDeProdutos;
             comboBoxProductName.DisplayMember = "Nome";
             comboBoxProductName.ValueMember = "Id";
             comboBoxProductName.SelectedIndex = -1;
         }
 
+        public FormAddProduct(IList<ProdutoSimples> listaDeProdutosSimples)
+        {
+            InitializeComponent();
+            comboBoxProductName.DataSource = listaDeProdutosSimples;
+            comboBoxProductName.DisplayMember = "Nome";
+            comboBoxProductName.ValueMember = "Id";
+            comboBoxProductName.SelectedIndex = -1;
+        }
+
+        //Botão OK
         private void btnOk_Click(object sender, System.EventArgs e)
         {
+            //Verifica se produto existe na lista
             if (comboBoxProductName.SelectedItem != null)
             {
+                //Atualiza o ID e a quantidade a serem resgatados pelo formulario que necessitar
                 productId = int.Parse(comboBoxProductName.SelectedValue.ToString());
                 quantidade = int.Parse(txtQuantity.Text);
+
+                //Verifica se quantidade selecionada é maior que zero
                 if (quantidade > 0)
                 {
                     this.DialogResult = DialogResult.OK;

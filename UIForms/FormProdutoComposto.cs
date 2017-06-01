@@ -8,6 +8,7 @@ namespace UIForms
 {
     public partial class FormProdutoComposto : Form
     {
+        //Formulário que controla o CRUD de produtos Composto
         public FormProdutoComposto()
         {
             InitializeComponent();
@@ -25,14 +26,17 @@ namespace UIForms
             listViewProdutosDaComposicao.Columns[1].Width = 80;
         }
 
+        //Botão Salvar
         private void BtnSave_Click(object sender, EventArgs e)
         {
             ProdutoComposto produtoComposto = new ProdutoComposto();
             ProdutosController produtosController = new ProdutosController();
             ProdutosDaComposicaoController produtosDaComposicaoController = new ProdutosDaComposicaoController();
 
-            if (txtCostValue.Text != "" || txtSellValue.Text != "" || comboBoxProductName.Text != "")
+            //Verifica caso queriam salvar com campos ainda vazios
+            if (txtCostValue.Text != "" || txtSellValue.Text != "" || comboBoxProductName.Text != "" || listViewProdutosDaComposicao.Items.Count > 0)
             {
+                //Conversão de texto para decimal dos preços de custo e de venda
                 if (!decimal.TryParse(txtCostValue.Text, out decimal txtCost))
                 {
                     MessageBox.Show(@"Valor de custo digitado não é válido", @"Valor incorreto",
@@ -43,18 +47,26 @@ namespace UIForms
                     MessageBox.Show(@"Valor de venda digitado não é válido", @"Valor incorreto",
                         MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 }
+                //Verifica se o item selecionado existe na lista
                 else if (comboBoxProductName.SelectedIndex != -1)
                 {
+                    //Conversão id de um produto selecionado em (int)
                     if (int.TryParse(comboBoxProductName.SelectedValue.ToString(), out int id))
                     {
+                        //Verifica se produto existe no banco
                         if (produtosController.Selecionar(id) != null)
                         {
+                            //Altera produto composto no banco
                             produtoComposto = produtosController.SelecionarProdutosCompostos(id);
+
+                            //Exclui todos os relacionamentos antigos com produtos simples
                             produtosDaComposicaoController.Excluir(produtoComposto);
 
                             produtoComposto.PrecoCusto = txtCost;
                             produtoComposto.PrecoVenda = txtSell;
                             produtosController.Alterar(produtoComposto);
+
+                            //Insere ou renova relacionamentos com todos os produtos simples da listagem
                             for (int i = 0; i < listViewProdutosDaComposicao.Items.Count; i++)
                             {
                                 ProdutosDaComposicao produtosDaComposicao = new ProdutosDaComposicao();
@@ -79,10 +91,13 @@ namespace UIForms
                 }
                 else
                 {
+                    //Insere novo produto composto
                     produtoComposto.Nome = comboBoxProductName.Text;
                     produtoComposto.PrecoCusto = txtCost;
                     produtoComposto.PrecoVenda = txtSell;
                     produtosController.Salvar(produtoComposto);
+
+                    //Insere relacionamentos com todos os produtos simples da listagem
                     for (int i = 0; i < listViewProdutosDaComposicao.Items.Count; i++)
                     {
                         ProdutosDaComposicao produtosDaComposicao = new ProdutosDaComposicao();
@@ -108,17 +123,25 @@ namespace UIForms
             }
         }
 
+        //Botão Excluir
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             ProdutosController produtosController = new ProdutosController();
             ProdutosDaComposicaoController produtosDaComposicaoController = new ProdutosDaComposicaoController();
+            //Verifica se produto existe na lista
             if (comboBoxProductName.SelectedIndex != -1)
             {
+                //Conversão id de um produto selecionado em (int)
                 int.TryParse(comboBoxProductName.SelectedValue.ToString(), out int id);
+                //Verifica se produto existe no banco
                 if (produtosController.Selecionar(id) != null)
                 {
                     Produto produto = produtosController.Selecionar(id);
+
+                    //Exclui todos os produtos simples relacionados ao produto composto selecionado
                     produtosDaComposicaoController.Excluir(produto);
+
+                    //Exclui o produto composto
                     produtosController.Excluir(produto);
                     MessageBox.Show(@"Produto excluído com sucesso", @"Sucesso ao excluir",
                         MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
@@ -140,19 +163,25 @@ namespace UIForms
             }
         }
 
+        //Combobox para seleção ou inserção do nome de um produto
         private void ComboBoxProductName_TextChanged(object sender, EventArgs e)
         {
             ProdutosController produtosController = new ProdutosController();
+            //Verifica se produto existe na lista
             if (comboBoxProductName.SelectedItem != null)
             {
+                //Conversão id de um produto selecionado em (int)
                 int.TryParse(comboBoxProductName.SelectedValue.ToString(), out int id);
                 ProdutoComposto produtoComposto = produtosController.SelecionarProdutosCompostos(id);
                 IList<ProdutoSimples> listaProdutoSimples = produtosController.ListarProdutosSimples();
+
+                //Verifica se produto existe no banco
                 if (produtoComposto != null)
                 {
                     decimal totalCusto = 0;
                     txtSellValue.Text = produtoComposto.PrecoVenda.ToString();
                     listViewProdutosDaComposicao.Items.Clear();
+                    //Lista todos os produtos simples relacionados com o produto composto selecionado e calcula o preço de custo total
                     foreach (ProdutosDaComposicao produtosDaComposicao in produtoComposto.ProdutosDaComposicao)
                     {
                         string[] row = { produtosDaComposicao.ProdutoSimples.Nome, produtosDaComposicao.QuantidadeContidaDoProdutoSimples.ToString() };
@@ -167,6 +196,7 @@ namespace UIForms
                 }
                 else
                 {
+                    //Caso não exista zera a listagem e os preços
                     listViewProdutosDaComposicao.Items.Clear();
                     txtCostValue.Text = "0,00";
                     txtSellValue.Text = "0,00";
@@ -174,20 +204,26 @@ namespace UIForms
             }
             else
             {
+                //Caso não exista zera a listagem e os preços
                 listViewProdutosDaComposicao.Items.Clear();
                 txtCostValue.Text = "0,00";
                 txtSellValue.Text = "0,00";
             }
         }
 
+        //Botão Remover
         private void btnRemoveProduct_Click(object sender, EventArgs e)
         {
             ProdutoSimples produtoSimples = new ProdutoSimples();
             decimal totalCusto = 0;
+
+            //Remove todos os produtos selecionados da listagem
             foreach (ListViewItem eachItem in listViewProdutosDaComposicao.SelectedItems)
             {
                 listViewProdutosDaComposicao.Items.Remove(eachItem);
             }
+
+            //Recalcula o preço de custo após remoção dos itens
             for (int i = 0; i < listViewProdutosDaComposicao.Items.Count; i++)
             {
                 produtoSimples = (ProdutoSimples)listViewProdutosDaComposicao.Items[i].Tag;
@@ -195,6 +231,8 @@ namespace UIForms
                                      int.Parse(listViewProdutosDaComposicao.Items[i].SubItems[1].Text);
                 totalCusto += valorCusto;
             }
+
+            //Atualiza preço de custo
             if (totalCusto == 0)
             {
                 txtCostValue.Text = "0,00";
@@ -205,26 +243,34 @@ namespace UIForms
             }
         }
 
+        //Botão Adicionar
         private void btnAddProduct_Click(object sender, EventArgs e)
         {
-            using (var form = new FormAddProductToComposition())
+            ProdutosController produtosController = new ProdutosController();
+            ProdutoSimples produtoSimples = new ProdutoSimples();
+            //Abre um novo formulário para inserir novo produto simples na listagem
+            //O mesmo retorna um id do produto selecionado e a quantidade contida do produto simples no produto composto
+            using (var form = new FormAddProduct(produtosController.ListarProdutosSimples()))
             {
                 var result = form.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    ProdutosController produtosController = new ProdutosController();
-                    ProdutoSimples produtoSimples = new ProdutoSimples();
+
                     decimal totalCusto = 0;
+
+                    //Recupera dados do formulário
                     int productId = form.productId;
                     int quantity = form.quantidade;
 
                     produtoSimples = produtosController.SelecionarProdutosSimples(productId);
-
                     string[] row = { produtoSimples.Nome, quantity.ToString() };
                     var item = new ListViewItem(row);
 
+                    //Insere o produto na listagem
                     item.Tag = produtoSimples;
                     listViewProdutosDaComposicao.Items.Add(item);
+
+                    //Recalcula o preço de custo do produto composto
                     for (int i = 0; i < listViewProdutosDaComposicao.Items.Count; i++)
                     {
                         produtoSimples = (ProdutoSimples)listViewProdutosDaComposicao.Items[i].Tag;
