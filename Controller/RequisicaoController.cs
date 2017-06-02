@@ -1,5 +1,4 @@
 ﻿using System;
-using Database;
 using Model;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,26 +19,26 @@ namespace Controller
         }
 
         //Inserir requisicao no banco
-        public void Salvar(Requisicao requisicao)
+        public void Salvar(Request requisicao)
         {
             Banco.Requisicao.Add(requisicao);
             Banco.SaveChanges();
         }
 
         //Listar todas as requisições
-        public IEnumerable<Requisicao> Listar()
+        public IEnumerable<Request> Listar()
         {
             return Banco.Requisicao.ToList();
         }
 
         //Seleciona uma requisição passando uma data e um funcionário
-        public Requisicao Selecionar(DateTime data, string funcionario)
+        public Request Selecionar(DateTime data, string funcionario)
         {
             return Banco.Requisicao.Where(r => r.Funcionario == funcionario).FirstOrDefault(r => r.DataRequisicao == data);
         }
 
         //Altera uma requisição pre-selecionada
-        public void Alterar(Requisicao requisicao)
+        public void Alterar(Request requisicao)
         {
             var requisicaoSalvar = Banco.Requisicao.First(x => x.Id == requisicao.Id);
             requisicaoSalvar.Funcionario = requisicao.Funcionario;
@@ -49,10 +48,10 @@ namespace Controller
         }
 
         //Exclui uma requisição
-        public void Excluir(Requisicao requisicao)
+        public void Excluir(Request requisicao)
         {
             var requisicaoExcluir = Banco.Requisicao.First(x => x.Id == requisicao.Id);
-            Banco.Set<Requisicao>().Remove(requisicaoExcluir);
+            Banco.Set<Request>().Remove(requisicaoExcluir);
             Banco.SaveChanges();
         }
     }

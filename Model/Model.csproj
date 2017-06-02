@@ -47,17 +47,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Produto.cs" />
-    <Compile Include="ProdutoComposto.cs" />
-    <Compile Include="ProdutosDaComposicao.cs" />
-    <Compile Include="ProdutoSimples.cs" />
-    <Compile Include="ProdutosNasRequisicoes.cs" />
+    <Compile Include="DBtriade.cs" />
+    <Compile Include="Migrations\201706022037222_SegundoBanco.cs" />
+    <Compile Include="Migrations\201706022037222_SegundoBanco.Designer.cs">
+      <DependentUpon>201706022037222_SegundoBanco.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Product.cs" />
+    <Compile Include="ProductComposition.cs" />
+    <Compile Include="ProductRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Requisicao.cs" />
+    <Compile Include="Request.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201706022037222_SegundoBanco.resx">
+      <DependentUpon>201706022037222_SegundoBanco.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

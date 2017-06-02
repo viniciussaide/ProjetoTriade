@@ -49,7 +49,7 @@ namespace UIForms
                             else
                             {
                                 //Atualização de um produto existente
-                                ProdutoSimples produtoSimples = produtosController.SelecionarProdutosSimples(id);
+                                Product produtoSimples = produtosController.SelecionarProdutosSimples(id);
                                 produtoSimples.PrecoCusto = txtCost;
                                 produtoSimples.PrecoVenda = txtSell;
                                 produtosController.Alterar(produtoSimples);
@@ -78,11 +78,12 @@ namespace UIForms
                     else
                     {
                         //Inserção de um novo produto no banco
-                        ProdutoSimples produtoSimples = new ProdutoSimples()
+                        Product produtoSimples = new Product()
                         {
                             Nome = comboBoxProductName.Text,
                             PrecoCusto = txtCost,
-                            PrecoVenda = txtSell
+                            PrecoVenda = txtSell,
+                            Tipo = TipoProduto.Simples
                         };
                         produtosController.Salvar(produtoSimples);
                         MessageBox.Show(@"Novo produto salvo com sucesso!", @"Sucesso ao salvar",
@@ -124,7 +125,7 @@ namespace UIForms
                     else
                     {
                         //Exclusão do produto
-                        ProdutoSimples produtoSimples = produtosController.SelecionarProdutosSimples(id);
+                        Product produtoSimples = produtosController.SelecionarProdutosSimples(id);
                         produtosController.Excluir(produtoSimples);
                         MessageBox.Show(@"Produto excluído com sucesso", @"Sucesso ao excluir",
                             MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
@@ -153,7 +154,7 @@ namespace UIForms
             if (comboBoxProductName.SelectedItem != null)
             {
                 int.TryParse(comboBoxProductName.SelectedValue.ToString(), out int id);
-                ProdutoSimples produtoSimples = produtosController.SelecionarProdutosSimples(id);
+                Product produtoSimples = produtosController.SelecionarProdutosSimples(id);
                 //Verifica se produto existe no banco
                 if (produtoSimples != null)
                 {

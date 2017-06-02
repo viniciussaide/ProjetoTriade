@@ -54,10 +54,6 @@
     <Compile Include="RequisicaoController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Database\Database.csproj">
-      <Project>{C16785E3-6216-499D-B1B0-076BF230C2CB}</Project>
-      <Name>Database</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{194251D3-F13E-4CCA-9A13-22EDD7F752C9}</Project>
       <Name>Model</Name>
