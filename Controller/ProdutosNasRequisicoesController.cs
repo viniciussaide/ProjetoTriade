@@ -25,9 +25,9 @@ namespace Controller
         }
 
         //Lista todos os produtos contidos em todas as requisições
-        public IEnumerable<ProductRequest> Listar()
+        public ProductRequest[] Listar()
         {
-            return Banco.ProdutosNasRequisicoes.ToList();
+            return Banco.ProdutosNasRequisicoes.ToArray();
         }
 
         //public ProdutosNasRequisicoes Selecionar(int id)
@@ -40,8 +40,8 @@ namespace Controller
         {
             var produtoNasRequisicoesSalvar =
                 Banco.ProdutosNasRequisicoes
-                .Where(x => x.IdRequisicao == produtoNasRequisicoes.IdRequisicao)
-                .First(x => x.IdProduto == produtoNasRequisicoes.IdProduto);
+                .Where(x => x.RequisicaoId == produtoNasRequisicoes.RequisicaoId)
+                .First(x => x.ProductId == produtoNasRequisicoes.ProductId);
             produtoNasRequisicoesSalvar.Quantidade = produtoNasRequisicoes.Quantidade;
             Banco.SaveChanges();
         }
@@ -49,11 +49,11 @@ namespace Controller
         //Exclui todos os produtos contidos em uma requisição
         public void Excluir(Request requisicao)
         {
-            var count = Banco.ProdutosNasRequisicoes.Count(x => x.IdRequisicao == requisicao.Id);
+            var count = Banco.ProdutosNasRequisicoes.Count(x => x.RequisicaoId == requisicao.Id);
             if (count > 0)
             {
                 var produtosNaRequisicao =
-                    Banco.ProdutosNasRequisicoes.Where(x => x.IdRequisicao == requisicao.Id);
+                    Banco.ProdutosNasRequisicoes.Where(x => x.RequisicaoId == requisicao.Id);
                 Banco.ProdutosNasRequisicoes.RemoveRange(produtosNaRequisicao);
                 Banco.SaveChanges();
             }

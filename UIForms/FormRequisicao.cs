@@ -1,14 +1,15 @@
 ﻿using Controller;
 using Model;
 using System;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace UIForms
 {
-	public partial class FormRequisicao : Form
+    public partial class FormRequisicao : Form
 	{
-		public FormRequisicao()
+        public Request requisicao { get; set; }
+
+        public FormRequisicao(Request requisicao)
 		{
 			InitializeComponent();
 
@@ -25,7 +26,43 @@ namespace UIForms
 			listViewProdutosNaRequisicao.Columns[1].Width = 40;
 			listViewProdutosNaRequisicao.Columns[2].Width = 100;
 			listViewProdutosNaRequisicao.Columns[3].Width = 80;
-		}
+            listViewProdutosNaRequisicao.FullRowSelect = true;
+
+            this.requisicao = requisicao;
+            if (requisicao == null)
+            {
+                btnDelete.Visible = false;
+            }
+            else
+            {
+                datePickerDataDaRequisicao.Value = requisicao.DataRequisicao;
+                txtFuncionario.Text = requisicao.Funcionario;
+                listViewProdutosNaRequisicao.Items.Clear();
+                decimal totalCusto = 0;
+                decimal valorCusto = 0;
+                ProdutosController ProdutosController = new ProdutosController();
+                //Lista todos os produtos simples relacionados com o produto composto selecionado e calcula o preço de custo total
+                foreach (ProductRequest produtosNaRequisicao in requisicao.Produtos)
+                {
+                    Product produto = ProdutosController.Selecionar(produtosNaRequisicao.ProductId);
+                    valorCusto = produto.PrecoCusto * 
+                        produtosNaRequisicao.Quantidade;
+                    totalCusto += valorCusto;
+
+                    string[] row = {
+                        produto.Nome,
+                        produtosNaRequisicao.Quantidade.ToString(),
+                        produto.PrecoCusto.ToString(),
+                        valorCusto.ToString()
+                    };
+                    var item = new ListViewItem(row);
+                    item.Tag = produto;
+                    listViewProdutosNaRequisicao.Items.Add(item);
+
+                }
+                txtCostValue.Text = totalCusto.ToString();
+            }
+        }
 
 		//Botão Remover
 		private void btnRemoveProduct_Click(object sender, EventArgs e)
@@ -86,10 +123,18 @@ namespace UIForms
 
 					//Insere o produto na listagem
 					item.Tag = produto;
-					listViewProdutosNaRequisicao.Items.Add(item);
-
-					//Recalcula o preço de custo do produto composto
-					for (int i = 0; i < listViewProdutosNaRequisicao.Items.Count; i++)
+                    foreach (ListViewItem listItem in listViewProdutosNaRequisicao.Items)
+                    {
+                        Product produtoNaLista = (Product)listItem.Tag;
+                        if (produtoNaLista.Id == produto.Id)
+                        {
+                            listViewProdutosNaRequisicao.Items.Remove(listItem);
+                        }
+                    }
+                    listViewProdutosNaRequisicao.Items.Add(item);
+                    listViewProdutosNaRequisicao.Sorting = SortOrder.Ascending;
+                    //Recalcula o preço de custo do produto composto
+                    for (int i = 0; i < listViewProdutosNaRequisicao.Items.Count; i++)
 					{
 						produto = (Product)listViewProdutosNaRequisicao.Items[i].Tag;
 						decimal subtotal = produto.PrecoCusto *
@@ -104,35 +149,39 @@ namespace UIForms
 		//Botão Salvar
 		private void btnSave_Click(object sender, EventArgs e)
 		{
-			Request requisicao = new Request();
 			RequisicaoController requisicaoController = new RequisicaoController();
 			ProdutosNasRequisicoesController produtosNasRequisicoesController = new ProdutosNasRequisicoesController();
 
 			//Verifica caso queriam salvar com campos ainda vazios
 			if (datePickerDataDaRequisicao.Text != "" || txtFuncionario.Text != "" || listViewProdutosNaRequisicao.Items.Count > 0)
 			{
-				requisicao = requisicaoController.Selecionar(datePickerDataDaRequisicao.Value, txtFuncionario.Text);
 				//Verifica se existe requisição aberta com a data e o funcionario selecionados
 				if (requisicao != null)
 				{
 					//Caso exita o relacionamento, exclui todos os relacionamentos de produtos que compunham a requisição
 					produtosNasRequisicoesController.Excluir(requisicao);
 
-					//Insere ou renova os relacionamentos de produtos da listagem que compõe a requisição
-					for (int i = 0; i < listViewProdutosNaRequisicao.Items.Count; i++)
+                    requisicao.Funcionario = txtFuncionario.Text;
+                    requisicao.DataRequisicao = datePickerDataDaRequisicao.Value;
+                    requisicaoController.Alterar(requisicao);
+
+                    //Insere ou renova os relacionamentos de produtos da listagem que compõe a requisição
+                    for (int i = 0; i < listViewProdutosNaRequisicao.Items.Count; i++)
 					{
 						ProductRequest produtosNasRequisicoes = new ProductRequest();
 						Product produto = (Product)listViewProdutosNaRequisicao.Items[i].Tag;
 
-						produtosNasRequisicoes.IdRequisicao = requisicao.Id;
-						produtosNasRequisicoes.IdProduto = produto.Id;
+						produtosNasRequisicoes.RequisicaoId = requisicao.Id;
+						produtosNasRequisicoes.ProductId = produto.Id;
 						produtosNasRequisicoes.Quantidade = int.Parse(listViewProdutosNaRequisicao.Items[i].SubItems[1].Text);
 
 						produtosNasRequisicoesController.Salvar(produtosNasRequisicoes);
 					}
 					MessageBox.Show(@"Requisição alterada com sucesso!", @"Sucesso ao salvar",
 						MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-				}
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
 				else
 				{
 					//Caso não exista a requisição insere uma nova
@@ -147,15 +196,17 @@ namespace UIForms
 						ProductRequest produtosNasRequisicoes = new ProductRequest();
 						Product produto = (Product)listViewProdutosNaRequisicao.Items[i].Tag;
 
-						produtosNasRequisicoes.IdRequisicao = requisicao.Id;
-						produtosNasRequisicoes.IdProduto = produto.Id;
+						produtosNasRequisicoes.RequisicaoId = requisicao.Id;
+						produtosNasRequisicoes.ProductId = produto.Id;
 						produtosNasRequisicoes.Quantidade = int.Parse(listViewProdutosNaRequisicao.Items[i].SubItems[1].Text);
 
 						produtosNasRequisicoesController.Salvar(produtosNasRequisicoes);
 					}
 					MessageBox.Show(@"Nova requisição salva com sucesso!", @"Sucesso ao salvar",
 						MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-				}
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
 			}
 			else
 			{
@@ -164,27 +215,48 @@ namespace UIForms
 			}
 		}
 
-		//private async void listViewProdutosNaRequisicao_ItemActivate(object sender, EventArgs e)
-		//{
-		//	var task = VaiNoBancoAsync();
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            RequisicaoController requisicaoController = new RequisicaoController();
+            ProdutosNasRequisicoesController produtosNasRequisicoesController = new ProdutosNasRequisicoesController();
+            if (requisicao != null)
+            {
+                //Caso exita o relacionamento, exclui todos os relacionamentos de produtos que compunham a requisição
+                produtosNasRequisicoesController.Excluir(requisicao);
+                requisicaoController.Excluir(requisicao);
+                MessageBox.Show(@"Requisição excluída com sucesso!", @"Sucesso ao excluir",
+                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show(@"Selecione uma requisição entes de excluir!", @"Erro ao excluir",
+                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+        }
 
-		//	//Mostrar tela de carregamento
+        //private async void listViewProdutosNaRequisicao_ItemActivate(object sender, EventArgs e)
+        //{
+        //	var task = VaiNoBancoAsync();
 
-		//	var produto = await task;
+        //	//Mostrar tela de carregamento
 
-		//	//Tirar tela de carregamento
-		//}
+        //	var produto = await task;
 
-		//public Task<Product> VaiNoBancoAsync()
-		//{
-		//	Func<Product> acao = delegate ()
-		//	{
-		//		var controller = new ProdutosController();
+        //	//Tirar tela de carregamento
+        //}
 
-		//		return controller.Selecionar(1);
-		//	};
+        //public Task<Product> VaiNoBancoAsync()
+        //{
+        //	Func<Product> acao = delegate ()
+        //	{
+        //		var controller = new ProdutosController();
 
-		//	return Task.Run(acao);
-		//}
-	}
+        //		return controller.Selecionar(1);
+        //	};
+
+        //	return Task.Run(acao);
+        //}
+    }
 }

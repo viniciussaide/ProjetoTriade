@@ -71,11 +71,23 @@
     <Compile Include="FormProdutoComposto.Designer.cs">
       <DependentUpon>FormProdutoComposto.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormProdutos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormProdutos.Designer.cs">
+      <DependentUpon>FormProdutos.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormProdutoSimples.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormProdutoSimples.Designer.cs">
       <DependentUpon>FormProdutoSimples.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRequestList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRequestList.Designer.cs">
+      <DependentUpon>FormRequestList.cs</DependentUpon>
     </Compile>
     <Compile Include="FormRequisicao.cs">
       <SubType>Form</SubType>
@@ -94,8 +106,14 @@
     <EmbeddedResource Include="FormProdutoComposto.resx">
       <DependentUpon>FormProdutoComposto.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormProdutos.resx">
+      <DependentUpon>FormProdutos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormProdutoSimples.resx">
       <DependentUpon>FormProdutoSimples.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRequestList.resx">
+      <DependentUpon>FormRequestList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRequisicao.resx">
       <DependentUpon>FormRequisicao.cs</DependentUpon>

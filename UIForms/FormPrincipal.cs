@@ -9,24 +9,19 @@ namespace UIForms
         public FormPrincipal()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
         }
 
-        private void btnCadastrarProdutosSimples_Click(object sender, EventArgs e)
+        private void produtosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormProdutoSimples formProdutoSimples = new FormProdutoSimples();
-            formProdutoSimples.ShowDialog();
+            FormProdutos formProdutos = new FormProdutos();
+            formProdutos.ShowDialog();
         }
 
-        private void btnCadastrarProdutoComposto_Click(object sender, EventArgs e)
+        private void requisiçõesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormProdutoComposto formProdutoComposto = new FormProdutoComposto();
-            formProdutoComposto.ShowDialog();
-        }
-
-        private void btnRequisicao_Click(object sender, EventArgs e)
-        {
-            FormRequisicao formRequisicao = new FormRequisicao();
-            formRequisicao.ShowDialog();
+            FormRequestList formRequestList = new FormRequestList();
+            formRequestList.ShowDialog();
         }
     }
 }

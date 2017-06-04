@@ -1,6 +1,6 @@
 ﻿using System;
 using Model;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace Controller
@@ -26,9 +26,9 @@ namespace Controller
         }
 
         //Listar todas as requisições
-        public IEnumerable<Request> Listar()
+        public Request[] Listar()
         {
-            return Banco.Requisicao.ToList();
+            return Banco.Requisicao.Include(x => x.Produtos).ToArray();
         }
 
         //Seleciona uma requisição passando uma data e um funcionário
@@ -40,10 +40,9 @@ namespace Controller
         //Altera uma requisição pre-selecionada
         public void Alterar(Request requisicao)
         {
-            var requisicaoSalvar = Banco.Requisicao.First(x => x.Id == requisicao.Id);
+            Request requisicaoSalvar = Banco.Requisicao.FirstOrDefault(x => x.Id == requisicao.Id);
             requisicaoSalvar.Funcionario = requisicao.Funcionario;
             requisicaoSalvar.DataRequisicao = requisicao.DataRequisicao;
-            requisicaoSalvar.ProdutosNasRequisicoes = requisicao.ProdutosNasRequisicoes;
             Banco.SaveChanges();
         }
 

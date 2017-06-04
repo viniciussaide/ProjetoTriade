@@ -33,20 +33,20 @@ namespace Controller
         //Seleciona todos os produtos simples relacionados com um id de um produto composto
         public IQueryable<ProductComposition> Selecionar(int id)
         {
-            return Banco.ProdutosDaComposicao.Where(x => x.IdProdutoComposto == id);
+            return Banco.ProdutosDaComposicao.Where(x => x.ProdutoId == id);
         }
 
         //Conta em quantas composições o id do produto simples esta fazendo relações 
         public int TotalRelacionamentosProdutoSimples(int id)
         {
-            return Banco.ProdutosDaComposicao.Count(x => x.IdProdutoSimples == id);
+            return Banco.ProdutosDaComposicao.Count(x => x.ItemId == id);
         }
 
         //Altera um relacionamento de um produto simples em uma composição de um produto composto pre-selecionado
         public void Alterar(ProductComposition produtosDaComposicao)
         {
             var produtosDaComposicaoSalvar = Banco.ProdutosDaComposicao
-                .Where(x => x.IdProdutoComposto == produtosDaComposicao.IdProdutoComposto).First(x => x.IdProdutoSimples == produtosDaComposicao.IdProdutoSimples);
+                .Where(x => x.ProdutoId == produtosDaComposicao.ProdutoId).First(x => x.ItemId == produtosDaComposicao.ItemId);
             produtosDaComposicaoSalvar.Quantidade = produtosDaComposicao.Quantidade;
             Banco.SaveChanges();
         }
@@ -55,8 +55,8 @@ namespace Controller
         public void Excluir(ProductComposition produtosDaComposicao)
         {
             var produtosDaComposicaoExcluir = Banco.ProdutosDaComposicao
-                .Where(x => x.IdProdutoComposto == produtosDaComposicao.IdProdutoComposto)
-                .First(x => x.IdProdutoSimples == produtosDaComposicao.IdProdutoSimples);
+                .Where(x => x.ProdutoId == produtosDaComposicao.ProdutoId)
+                .First(x => x.ItemId == produtosDaComposicao.ItemId);
             Banco.Set<ProductComposition>().Remove(produtosDaComposicaoExcluir);
             Banco.SaveChanges();
         }
@@ -64,11 +64,11 @@ namespace Controller
         //Exclui todos os relacionamentos de composição que um produto composto possui
         public void Excluir(Product produto)
         {
-            var count = Banco.ProdutosDaComposicao.Count(x => x.IdProdutoComposto == produto.Id);
+            var count = Banco.ProdutosDaComposicao.Count(x => x.ProdutoId == produto.Id);
             if (count > 0)
             {
                 var produtosDaComposicaoExcluir =
-                    Banco.ProdutosDaComposicao.Where(x => x.IdProdutoComposto == produto.Id);
+                    Banco.ProdutosDaComposicao.Where(x => x.ProdutoId == produto.Id);
                 Banco.ProdutosDaComposicao.RemoveRange(produtosDaComposicaoExcluir);
                 Banco.SaveChanges();
             }

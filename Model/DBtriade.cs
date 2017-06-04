@@ -19,60 +19,32 @@ namespace Model
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //Modelagem do banco mais específicas feitas pelo Fluent API
-            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention> ();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             modelBuilder.Entity<ProductComposition>()
-                .HasKey(x => new { x.IdProdutoComposto, x.IdProdutoSimples });
+                .HasKey(x => new { x.ProdutoId, x.ItemId });
 
             modelBuilder.Entity<ProductComposition>()
-                .HasRequired(x => x.ProdutoComposto)
-                .WithMany(x => x.ProdutosSimples);
+                .HasRequired(x => x.Produto)
+                .WithMany(x => x.Itens);
 
             modelBuilder.Entity<ProductComposition>()
-                .HasRequired(x => x.ProdutoSimples)
-                .WithMany(x => x.ProdutosCompostos);
-
+                .HasRequired(x => x.Item)
+                .WithMany(x => x.Produtos);
 
             modelBuilder.Entity<ProductRequest>()
-                .HasKey(x => new { x.IdRequisicao, x.IdProduto });
+                .HasKey(x => new { x.RequisicaoId, x.ProductId });
 
             modelBuilder.Entity<ProductRequest>()
                 .HasRequired(x => x.Requisicao)
-                .WithMany(x => x.ProdutosNasRequisicoes);
+                .WithMany(x => x.Produtos);
 
             modelBuilder.Entity<ProductRequest>()
                 .HasRequired(x => x.Produto)
-                .WithMany(x => x.ProdutosNasRequisicoes);
+                .WithMany(x => x.Requisicoes);
 
-
-            ////Chave estrangeira entre ProdutosDaComposicao e ProdutoComposto
-            //modelBuilder.Entity<ProductComposition>()
-            //            .HasRequired(c => c.ProdutoComposto)
-            //            .WithMany(s => s.ProdutosDaComposicao)
-            //            .HasForeignKey(c => c.FKprodutoComposto)
-            //            .WillCascadeOnDelete(false);
-            ////Chave estrangeira entre ProdutosDaComposicao e ProdutoSimples
-            //modelBuilder.Entity<ProductComposition>()
-            //            .HasRequired(c => c.ProdutoSimples)
-            //            .WithMany(s => s.ProdutosDaComposicao)
-            //            .HasForeignKey(c => c.FKprodutoSimples)
-            //            .WillCascadeOnDelete(false);
-            //Chave estrangeira entre ProdutosNasRequisicoes e Produto
-            //modelBuilder.Entity<ProductRequest>()
-            //            .HasRequired(pr => pr.Produto)
-            //            .WithMany(r => r.ProdutosNasRequisicoes)
-            //            .HasForeignKey(pr => pr.IdProduto)
-            //            .WillCascadeOnDelete(false);
-            ////Chave estrangeira entre ProdutosNasRequisicoes e Requisicao
-            //modelBuilder.Entity<ProductRequest>()
-            //            .HasRequired(pr => pr.Requisicao)
-            //            .WithMany(r => r.ProdutosNasRequisicoes)
-            //            .HasForeignKey(pr => pr.IdRequisicao)
-            //            .WillCascadeOnDelete(false);
-
-            base.OnModelCreating(modelBuilder);
+            //base.OnModelCreating(modelBuilder);
         }
     }
 }

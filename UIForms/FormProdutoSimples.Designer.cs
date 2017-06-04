@@ -35,7 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBoxProductName = new System.Windows.Forms.ComboBox();
+            this.txtProductName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // txtCostValue
@@ -43,31 +43,31 @@
             this.txtCostValue.Location = new System.Drawing.Point(135, 63);
             this.txtCostValue.Name = "txtCostValue";
             this.txtCostValue.Size = new System.Drawing.Size(151, 22);
-            this.txtCostValue.TabIndex = 1;
+            this.txtCostValue.TabIndex = 2;
             // 
             // txtSellValue
             // 
             this.txtSellValue.Location = new System.Drawing.Point(135, 100);
             this.txtSellValue.Name = "txtSellValue";
             this.txtSellValue.Size = new System.Drawing.Size(151, 22);
-            this.txtSellValue.TabIndex = 2;
+            this.txtSellValue.TabIndex = 3;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(341, 124);
+            this.btnSave.Location = new System.Drawing.Point(302, 126);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 3;
+            this.btnSave.Size = new System.Drawing.Size(89, 26);
+            this.btnSave.TabIndex = 4;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(434, 124);
+            this.btnDelete.Location = new System.Drawing.Point(397, 126);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
-            this.btnDelete.TabIndex = 4;
+            this.btnDelete.Size = new System.Drawing.Size(89, 26);
+            this.btnDelete.TabIndex = 5;
             this.btnDelete.Text = "Excluir";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
@@ -99,23 +99,19 @@
             this.label3.TabIndex = 7;
             this.label3.Text = "Preço de Venda";
             // 
-            // comboBoxProductName
+            // txtProductName
             // 
-            this.comboBoxProductName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.comboBoxProductName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxProductName.FormattingEnabled = true;
-            this.comboBoxProductName.Location = new System.Drawing.Point(135, 26);
-            this.comboBoxProductName.Name = "comboBoxProductName";
-            this.comboBoxProductName.Size = new System.Drawing.Size(351, 24);
-            this.comboBoxProductName.TabIndex = 0;
-            this.comboBoxProductName.TextChanged += new System.EventHandler(this.ComboBoxProductName_TextChanged);
+            this.txtProductName.Location = new System.Drawing.Point(135, 26);
+            this.txtProductName.Name = "txtProductName";
+            this.txtProductName.Size = new System.Drawing.Size(351, 22);
+            this.txtProductName.TabIndex = 1;
             // 
             // FormProdutoSimples
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(566, 164);
-            this.Controls.Add(this.comboBoxProductName);
+            this.ClientSize = new System.Drawing.Size(499, 164);
+            this.Controls.Add(this.txtProductName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -124,6 +120,7 @@
             this.Controls.Add(this.txtSellValue);
             this.Controls.Add(this.txtCostValue);
             this.Name = "FormProdutoSimples";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Produto Simples";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -138,7 +135,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBoxProductName;
+        private System.Windows.Forms.TextBox txtProductName;
     }
 }
 

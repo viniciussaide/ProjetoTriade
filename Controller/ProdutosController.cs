@@ -26,7 +26,7 @@ namespace Controller
 		//Listar todos os produtos independente se este é simples ou composto
 		public Product[] Listar()
 		{
-			return Banco.Produtos.ToArray();
+			return Banco.Produtos.OrderBy(x => x.Nome).ToArray();
 		}
 
 		//Lista todos os produtos compostos

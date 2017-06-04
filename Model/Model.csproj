@@ -48,9 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBtriade.cs" />
-    <Compile Include="Migrations\201706022037222_SegundoBanco.cs" />
-    <Compile Include="Migrations\201706022037222_SegundoBanco.Designer.cs">
-      <DependentUpon>201706022037222_SegundoBanco.cs</DependentUpon>
+    <Compile Include="Migrations\201706031318479_SegundoBanco.cs" />
+    <Compile Include="Migrations\201706031318479_SegundoBanco.Designer.cs">
+      <DependentUpon>201706031318479_SegundoBanco.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Product.cs" />
@@ -64,8 +64,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706022037222_SegundoBanco.resx">
-      <DependentUpon>201706022037222_SegundoBanco.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706031318479_SegundoBanco.resx">
+      <DependentUpon>201706031318479_SegundoBanco.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

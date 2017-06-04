@@ -28,59 +28,85 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnCadastrarProdutosSimples = new System.Windows.Forms.Button();
-            this.btnCadastrarProdutoComposto = new System.Windows.Forms.Button();
-            this.btnRequisicao = new System.Windows.Forms.Button();
+            this.menuPrincipal = new System.Windows.Forms.MenuStrip();
+            this.produtosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.requisiçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.relatóriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.requisiçõesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.saídasDoEstoqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuPrincipal.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnCadastrarProdutosSimples
+            // menuPrincipal
             // 
-            this.btnCadastrarProdutosSimples.Location = new System.Drawing.Point(59, 36);
-            this.btnCadastrarProdutosSimples.Name = "btnCadastrarProdutosSimples";
-            this.btnCadastrarProdutosSimples.Size = new System.Drawing.Size(166, 23);
-            this.btnCadastrarProdutosSimples.TabIndex = 0;
-            this.btnCadastrarProdutosSimples.Text = "Produto Simples";
-            this.btnCadastrarProdutosSimples.UseVisualStyleBackColor = true;
-            this.btnCadastrarProdutosSimples.Click += new System.EventHandler(this.btnCadastrarProdutosSimples_Click);
+            this.menuPrincipal.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuPrincipal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.produtosToolStripMenuItem,
+            this.requisiçõesToolStripMenuItem,
+            this.relatóriosToolStripMenuItem});
+            this.menuPrincipal.Location = new System.Drawing.Point(0, 0);
+            this.menuPrincipal.Name = "menuPrincipal";
+            this.menuPrincipal.Size = new System.Drawing.Size(869, 28);
+            this.menuPrincipal.TabIndex = 3;
+            this.menuPrincipal.Text = "Menu Principal";
             // 
-            // btnCadastrarProdutoComposto
+            // produtosToolStripMenuItem
             // 
-            this.btnCadastrarProdutoComposto.Location = new System.Drawing.Point(59, 90);
-            this.btnCadastrarProdutoComposto.Name = "btnCadastrarProdutoComposto";
-            this.btnCadastrarProdutoComposto.Size = new System.Drawing.Size(166, 23);
-            this.btnCadastrarProdutoComposto.TabIndex = 1;
-            this.btnCadastrarProdutoComposto.Text = "Produto Composto";
-            this.btnCadastrarProdutoComposto.UseVisualStyleBackColor = true;
-            this.btnCadastrarProdutoComposto.Click += new System.EventHandler(this.btnCadastrarProdutoComposto_Click);
+            this.produtosToolStripMenuItem.Name = "produtosToolStripMenuItem";
+            this.produtosToolStripMenuItem.Size = new System.Drawing.Size(80, 24);
+            this.produtosToolStripMenuItem.Text = "Produtos";
+            this.produtosToolStripMenuItem.Click += new System.EventHandler(this.produtosToolStripMenuItem_Click);
             // 
-            // btnRequisicao
+            // requisiçõesToolStripMenuItem
             // 
-            this.btnRequisicao.Location = new System.Drawing.Point(59, 146);
-            this.btnRequisicao.Name = "btnRequisicao";
-            this.btnRequisicao.Size = new System.Drawing.Size(166, 23);
-            this.btnRequisicao.TabIndex = 2;
-            this.btnRequisicao.Text = "Requisição";
-            this.btnRequisicao.UseVisualStyleBackColor = true;
-            this.btnRequisicao.Click += new System.EventHandler(this.btnRequisicao_Click);
+            this.requisiçõesToolStripMenuItem.Name = "requisiçõesToolStripMenuItem";
+            this.requisiçõesToolStripMenuItem.Size = new System.Drawing.Size(99, 24);
+            this.requisiçõesToolStripMenuItem.Text = "Requisições";
+            this.requisiçõesToolStripMenuItem.Click += new System.EventHandler(this.requisiçõesToolStripMenuItem_Click);
+            // 
+            // relatóriosToolStripMenuItem
+            // 
+            this.relatóriosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.requisiçõesToolStripMenuItem1,
+            this.saídasDoEstoqueToolStripMenuItem});
+            this.relatóriosToolStripMenuItem.Name = "relatóriosToolStripMenuItem";
+            this.relatóriosToolStripMenuItem.Size = new System.Drawing.Size(88, 24);
+            this.relatóriosToolStripMenuItem.Text = "Relatórios";
+            // 
+            // requisiçõesToolStripMenuItem1
+            // 
+            this.requisiçõesToolStripMenuItem1.Name = "requisiçõesToolStripMenuItem1";
+            this.requisiçõesToolStripMenuItem1.Size = new System.Drawing.Size(206, 26);
+            this.requisiçõesToolStripMenuItem1.Text = "Requisições";
+            // 
+            // saídasDoEstoqueToolStripMenuItem
+            // 
+            this.saídasDoEstoqueToolStripMenuItem.Name = "saídasDoEstoqueToolStripMenuItem";
+            this.saídasDoEstoqueToolStripMenuItem.Size = new System.Drawing.Size(206, 26);
+            this.saídasDoEstoqueToolStripMenuItem.Text = "Saídas do estoque";
             // 
             // FormPrincipal
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.btnRequisicao);
-            this.Controls.Add(this.btnCadastrarProdutoComposto);
-            this.Controls.Add(this.btnCadastrarProdutosSimples);
+            this.ClientSize = new System.Drawing.Size(869, 561);
+            this.Controls.Add(this.menuPrincipal);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormPrincipal";
-            this.Text = "Menu Inicial";
+            this.Text = "Projeto Triade";
+            this.menuPrincipal.ResumeLayout(false);
+            this.menuPrincipal.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnCadastrarProdutosSimples;
-        private System.Windows.Forms.Button btnCadastrarProdutoComposto;
-        private System.Windows.Forms.Button btnRequisicao;
+        private System.Windows.Forms.MenuStrip menuPrincipal;
+        private System.Windows.Forms.ToolStripMenuItem produtosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem requisiçõesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem relatóriosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem requisiçõesToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem saídasDoEstoqueToolStripMenuItem;
     }
 }

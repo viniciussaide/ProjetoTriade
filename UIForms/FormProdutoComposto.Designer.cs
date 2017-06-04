@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBoxProductName = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnDelete = new System.Windows.Forms.Button();
@@ -39,136 +38,132 @@
             this.listViewProdutosDaComposicao = new System.Windows.Forms.ListView();
             this.btnAddProduct = new System.Windows.Forms.Button();
             this.btnRemoveProduct = new System.Windows.Forms.Button();
+            this.txtProductName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // comboBoxProductName
-            // 
-            this.comboBoxProductName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.comboBoxProductName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBoxProductName.FormattingEnabled = true;
-            this.comboBoxProductName.Location = new System.Drawing.Point(112, 19);
-            this.comboBoxProductName.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBoxProductName.Name = "comboBoxProductName";
-            this.comboBoxProductName.Size = new System.Drawing.Size(264, 21);
-            this.comboBoxProductName.TabIndex = 8;
-            this.comboBoxProductName.SelectedValueChanged += new System.EventHandler(this.ComboBoxProductName_TextChanged);
-            this.comboBoxProductName.TextChanged += new System.EventHandler(this.ComboBoxProductName_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 53);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(24, 65);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 13);
+            this.label3.Size = new System.Drawing.Size(114, 17);
             this.label3.TabIndex = 13;
-            this.label3.Text = "Preço de Venda";
+            this.label3.Text = "Preço de Venda:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 21);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(24, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 13);
+            this.label1.Size = new System.Drawing.Size(123, 17);
             this.label1.TabIndex = 12;
-            this.label1.Text = "Nome do Produto";
+            this.label1.Text = "Nome do Produto:";
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(301, 313);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDelete.Location = new System.Drawing.Point(409, 344);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
-            this.btnDelete.TabIndex = 11;
+            this.btnDelete.Size = new System.Drawing.Size(100, 28);
+            this.btnDelete.TabIndex = 7;
             this.btnDelete.Text = "Excluir";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.BtnDelete_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(217, 313);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSave.Location = new System.Drawing.Point(297, 344);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 10;
+            this.btnSave.Size = new System.Drawing.Size(100, 28);
+            this.btnSave.TabIndex = 6;
             this.btnSave.Text = "Salvar";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
             // 
             // txtSellValue
             // 
-            this.txtSellValue.Location = new System.Drawing.Point(112, 50);
-            this.txtSellValue.Margin = new System.Windows.Forms.Padding(2);
+            this.txtSellValue.Location = new System.Drawing.Point(153, 62);
+            this.txtSellValue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtSellValue.Name = "txtSellValue";
-            this.txtSellValue.Size = new System.Drawing.Size(114, 20);
-            this.txtSellValue.TabIndex = 9;
+            this.txtSellValue.Size = new System.Drawing.Size(151, 22);
+            this.txtSellValue.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 265);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(24, 316);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 13);
+            this.label2.Size = new System.Drawing.Size(109, 17);
             this.label2.TabIndex = 15;
-            this.label2.Text = "Preço de Custo";
+            this.label2.Text = "Preço de Custo:";
             // 
             // txtCostValue
             // 
-            this.txtCostValue.Location = new System.Drawing.Point(98, 262);
-            this.txtCostValue.Margin = new System.Windows.Forms.Padding(2);
+            this.txtCostValue.Location = new System.Drawing.Point(139, 313);
+            this.txtCostValue.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtCostValue.Name = "txtCostValue";
             this.txtCostValue.ReadOnly = true;
-            this.txtCostValue.Size = new System.Drawing.Size(114, 20);
+            this.txtCostValue.Size = new System.Drawing.Size(151, 22);
             this.txtCostValue.TabIndex = 14;
             // 
             // listViewProdutosDaComposicao
             // 
-            this.listViewProdutosDaComposicao.Location = new System.Drawing.Point(21, 85);
+            this.listViewProdutosDaComposicao.Location = new System.Drawing.Point(27, 102);
+            this.listViewProdutosDaComposicao.Margin = new System.Windows.Forms.Padding(4);
             this.listViewProdutosDaComposicao.Name = "listViewProdutosDaComposicao";
-            this.listViewProdutosDaComposicao.Size = new System.Drawing.Size(355, 159);
-            this.listViewProdutosDaComposicao.TabIndex = 16;
+            this.listViewProdutosDaComposicao.Size = new System.Drawing.Size(482, 195);
+            this.listViewProdutosDaComposicao.TabIndex = 3;
             this.listViewProdutosDaComposicao.UseCompatibleStateImageBehavior = false;
             // 
             // btnAddProduct
             // 
-            this.btnAddProduct.Location = new System.Drawing.Point(217, 260);
+            this.btnAddProduct.Location = new System.Drawing.Point(297, 310);
+            this.btnAddProduct.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddProduct.Name = "btnAddProduct";
-            this.btnAddProduct.Size = new System.Drawing.Size(75, 23);
-            this.btnAddProduct.TabIndex = 17;
+            this.btnAddProduct.Size = new System.Drawing.Size(100, 28);
+            this.btnAddProduct.TabIndex = 4;
             this.btnAddProduct.Text = "Adicionar";
             this.btnAddProduct.UseVisualStyleBackColor = true;
             this.btnAddProduct.Click += new System.EventHandler(this.btnAddProduct_Click);
             // 
             // btnRemoveProduct
             // 
-            this.btnRemoveProduct.Location = new System.Drawing.Point(301, 260);
+            this.btnRemoveProduct.Location = new System.Drawing.Point(409, 310);
+            this.btnRemoveProduct.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemoveProduct.Name = "btnRemoveProduct";
-            this.btnRemoveProduct.Size = new System.Drawing.Size(75, 23);
-            this.btnRemoveProduct.TabIndex = 18;
+            this.btnRemoveProduct.Size = new System.Drawing.Size(100, 28);
+            this.btnRemoveProduct.TabIndex = 5;
             this.btnRemoveProduct.Text = "Remover";
             this.btnRemoveProduct.UseVisualStyleBackColor = true;
             this.btnRemoveProduct.Click += new System.EventHandler(this.btnRemoveProduct_Click);
             // 
+            // txtProductName
+            // 
+            this.txtProductName.Location = new System.Drawing.Point(153, 23);
+            this.txtProductName.Name = "txtProductName";
+            this.txtProductName.Size = new System.Drawing.Size(356, 22);
+            this.txtProductName.TabIndex = 1;
+            // 
             // FormProdutoComposto
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 350);
+            this.ClientSize = new System.Drawing.Size(526, 402);
+            this.Controls.Add(this.txtProductName);
             this.Controls.Add(this.btnRemoveProduct);
             this.Controls.Add(this.btnAddProduct);
             this.Controls.Add(this.listViewProdutosDaComposicao);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtCostValue);
-            this.Controls.Add(this.comboBoxProductName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtSellValue);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FormProdutoComposto";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Produto Composto";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -176,8 +171,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox comboBoxProductName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnDelete;
@@ -188,5 +181,6 @@
         private System.Windows.Forms.ListView listViewProdutosDaComposicao;
         private System.Windows.Forms.Button btnAddProduct;
         private System.Windows.Forms.Button btnRemoveProduct;
+        private System.Windows.Forms.TextBox txtProductName;
     }
 }

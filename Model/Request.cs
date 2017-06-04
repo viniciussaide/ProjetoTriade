@@ -10,6 +10,6 @@ namespace Model
         public DateTime DataRequisicao { get; set; }
         public string Funcionario { get; set; }
 
-        public virtual ICollection<ProductRequest> ProdutosNasRequisicoes { get; set; }
+        public virtual ICollection<ProductRequest> Produtos { get; set; }
     }
 }
