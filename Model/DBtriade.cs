@@ -11,10 +11,10 @@ namespace Model
 
         //Variáveis que representam tabelas em que são armazenados os objetos no banco
         //Usados pelo entity framework para troca de informação entre aplicação e banco de dados
-        public DbSet<Product> Produtos { get; set; }
-        public DbSet<ProductComposition> ProdutosDaComposicao { get; set; }
-        public DbSet<ProductRequest> ProdutosNasRequisicoes { get; set; }
-        public DbSet<Request> Requisicao { get; set; }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<ProductComposition> ProductComposition { get; set; }
+        public DbSet<ProductRequest> ProductRequest { get; set; }
+        public DbSet<Request> Request { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

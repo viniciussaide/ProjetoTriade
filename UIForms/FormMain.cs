@@ -1,5 +1,7 @@
 ﻿using iTextSharp;
+using Model;
 using System;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace UIForms
@@ -9,8 +11,20 @@ namespace UIForms
         //Formulário principal para seleção da função a ser executada
         public FormMain()
         {
-            InitializeComponent();
-            this.WindowState = FormWindowState.Maximized;
+            try
+            {
+                InitializeComponent();
+                this.WindowState = FormWindowState.Maximized;
+                DBtriade banco = new DBtriade();
+                banco.Database.Connection.Open();
+                banco.Database.Connection.Close();
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show(@"Erro ao conectar com o banco. Verifique as configurações e tente novamente.", @"Erro ao salvar",
+                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                this.Close();
+            }
         }
 
         private void ProdutosToolStripMenuItem_Click(object sender, EventArgs e)

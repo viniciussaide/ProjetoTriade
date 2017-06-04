@@ -10,15 +10,15 @@ namespace iTextSharp
 {
     public class ReportGeneratorPDF
     {
-        public DateTime startDate { get; set; }
-        public DateTime endDate { get; set; }
-        public string filePath { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string FilePath { get; set; }
 
         public ReportGeneratorPDF(string filePath, DateTime startDate, DateTime endDate)
         {
-            this.filePath = filePath;
-            this.startDate = startDate;
-            this.endDate = endDate;
+            this.FilePath = filePath;
+            this.StartDate = startDate;
+            this.EndDate = endDate;
         }
 
         public void RequestProductsReport()
@@ -27,19 +27,20 @@ namespace iTextSharp
             doc.SetMargins(0, 0, 40, 40);
             doc.AddCreationDate();
 
-            string caminho = filePath;
+            string caminho = FilePath;
             PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(caminho, FileMode.Create));
 
             doc.Open();
 
             string dados = "";
 
-            Paragraph paragrafo = new Paragraph(dados, new Font(Font.NORMAL, 14));
-            paragrafo.Alignment = Element.ALIGN_CENTER;
-
+            Paragraph paragrafo = new Paragraph(dados, new Font(Font.NORMAL, 14))
+            {
+                Alignment = Element.ALIGN_CENTER
+            };
             paragrafo.Add(
-                "Data inicial: " + String.Format("{0:dd/MM/yyyy}", startDate) +
-                " Data final: "+ String.Format("{0:dd/MM/yyyy}", endDate));
+                "Data inicial: " + String.Format("{0:dd/MM/yyyy}", StartDate) +
+                " Data final: "+ String.Format("{0:dd/MM/yyyy}", EndDate));
 
             PdfPTable table = new PdfPTable(3);
             PdfPCell cell = new PdfPCell();
@@ -80,7 +81,7 @@ namespace iTextSharp
                 "RIGHT JOIN DBtriade.dbo.ProductRequest ON ProductComposition.ProductId=ProductRequest.ProductId " +
                 "JOIN DBtriade.dbo.Product ON ProductRequest.ProductId=Product.Id " +
                 "JOIN [DBtriade].[dbo].Request ON [ProductRequest].RequestId=Request.Id " +
-                "WHERE Request.RequestDate>='" + startDate + "' AND Request.RequestDate<='" + endDate + "') " +
+                "WHERE Request.RequestDate>='" + StartDate + "' AND Request.RequestDate<='" + EndDate + "') " +
                 "AS Final " +
                 "GROUP BY Final.[Id Produto],Final.[Name Produto];";
             conn.Open();
@@ -96,8 +97,10 @@ namespace iTextSharp
                 }
             }
             //Footer da Tabela
-            cell = new PdfPCell(new Phrase("Total"));
-            cell.Colspan = 2;
+            cell = new PdfPCell(new Phrase("Total"))
+            {
+                Colspan = 2
+            };
             table.AddCell(cell);
 
             sql = "SELECT SUM(Final.ItemSubtotal) FROM " +
@@ -127,7 +130,7 @@ namespace iTextSharp
                 "RIGHT JOIN DBtriade.dbo.ProductRequest ON ProductComposition.ProductId=ProductRequest.ProductId " +
                 "JOIN DBtriade.dbo.Product ON ProductRequest.ProductId=Product.Id " +
                 "JOIN [DBtriade].[dbo].Request ON [ProductRequest].RequestId=Request.Id " +
-                "WHERE Request.RequestDate>='" + startDate + "' AND Request.RequestDate<='" + endDate + "') " +
+                "WHERE Request.RequestDate>='" + StartDate + "' AND Request.RequestDate<='" + EndDate + "') " +
                 "AS Final;";
 
             command = new SqlCommand(sql, conn);
@@ -163,18 +166,20 @@ namespace iTextSharp
             doc.SetMargins(0, 0, 40, 40);
             doc.AddCreationDate();
 
-            string caminho = filePath;
+            string caminho = FilePath;
             PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(caminho, FileMode.Create));
 
             doc.Open();
 
             string dados = "";
 
-            Paragraph paragrafo = new Paragraph(dados, new Font(Font.NORMAL, 14));
-            paragrafo.Alignment = Element.ALIGN_CENTER;
+            Paragraph paragrafo = new Paragraph(dados, new Font(Font.NORMAL, 14))
+            {
+                Alignment = Element.ALIGN_CENTER
+            };
             paragrafo.Add(
-                "Data inicial: " + String.Format("{0:dd/MM/yyyy}", startDate) +
-                " Data final: " + String.Format("{0:dd/MM/yyyy}", endDate));
+                "Data inicial: " + String.Format("{0:dd/MM/yyyy}", StartDate) +
+                " Data final: " + String.Format("{0:dd/MM/yyyy}", EndDate));
 
             PdfPTable table = new PdfPTable(4);
             PdfPCell cell = new PdfPCell();
@@ -193,7 +198,7 @@ namespace iTextSharp
                 "FROM [DBtriade].[dbo].[ProductRequest] " +
                 "JOIN [DBtriade].[dbo].Product ON Id = ProductId " +
                 "JOIN [DBtriade].[dbo].Request ON [ProductRequest].RequestId = Request.Id " +
-                "WHERE Request.RequestDate>='" + startDate + "' AND Request.RequestDate<='" + endDate + "' " +
+                "WHERE Request.RequestDate>='" + StartDate + "' AND Request.RequestDate<='" + EndDate + "' " +
                 "GROUP BY ProductId,Product.Name, CostValue, SellValue " +
                 "ORDER BY Product.Name;";
             conn.Open();
@@ -210,8 +215,10 @@ namespace iTextSharp
                 }
             }
             //Footer da Tabela
-            cell = new PdfPCell(new Phrase("Total"));
-            cell.Colspan = 2;
+            cell = new PdfPCell(new Phrase("Total"))
+            {
+                Colspan = 2
+            };
             table.AddCell(cell);
 
             sql = "SELECT SUM(CostValue) AS CostValue, SUM(SellValue) AS SellValue FROM " +
@@ -221,7 +228,7 @@ namespace iTextSharp
                 "FROM[DBtriade].[dbo].[ProductRequest] " +
                 "JOIN[DBtriade].[dbo].Product ON Id = ProductId " +
                 "JOIN[DBtriade].[dbo].Request ON[ProductRequest].RequestId = Request.Id " +
-               "WHERE Request.RequestDate>='" + startDate + "' AND Request.RequestDate<='" + endDate + "' " +
+               "WHERE Request.RequestDate>='" + StartDate + "' AND Request.RequestDate<='" + EndDate + "' " +
                 "GROUP BY ProductId, Product.Name, CostValue, SellValue, Quantity) AS Total";
 
             command = new SqlCommand(sql, conn);
