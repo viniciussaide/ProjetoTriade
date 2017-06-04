@@ -47,11 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProdutosNasRequisicoesController.cs" />
-    <Compile Include="ProdutosController.cs" />
-    <Compile Include="ProdutosDaComposicaoController.cs" />
+    <Compile Include="ProductRequestController.cs" />
+    <Compile Include="ProductsController.cs" />
+    <Compile Include="ProductCompositionController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequisicaoController.cs" />
+    <Compile Include="RequestController.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

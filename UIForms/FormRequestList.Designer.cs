@@ -39,7 +39,7 @@
             this.listViewRequisicoes.Size = new System.Drawing.Size(734, 432);
             this.listViewRequisicoes.TabIndex = 5;
             this.listViewRequisicoes.UseCompatibleStateImageBehavior = false;
-            this.listViewRequisicoes.DoubleClick += new System.EventHandler(this.listViewRequisicoes_DoubleClick);
+            this.listViewRequisicoes.DoubleClick += new System.EventHandler(this.ListViewRequisicoes_DoubleClick);
             // 
             // btnRequisicao
             // 
@@ -49,7 +49,7 @@
             this.btnRequisicao.TabIndex = 3;
             this.btnRequisicao.Text = "Nova Requisição";
             this.btnRequisicao.UseVisualStyleBackColor = true;
-            this.btnRequisicao.Click += new System.EventHandler(this.btnRequisicao_Click);
+            this.btnRequisicao.Click += new System.EventHandler(this.BtnRequisicao_Click);
             // 
             // FormRequestList
             // 

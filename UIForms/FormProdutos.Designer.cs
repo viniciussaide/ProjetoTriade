@@ -41,7 +41,7 @@
             this.btnProdutoSimples.TabIndex = 0;
             this.btnProdutoSimples.Text = "Novo produto simples";
             this.btnProdutoSimples.UseVisualStyleBackColor = true;
-            this.btnProdutoSimples.Click += new System.EventHandler(this.btnProdutoSimples_Click);
+            this.btnProdutoSimples.Click += new System.EventHandler(this.BtnProdutoSimples_Click);
             // 
             // btnProdutoComposto
             // 
@@ -51,7 +51,7 @@
             this.btnProdutoComposto.TabIndex = 1;
             this.btnProdutoComposto.Text = "Novo produto composto";
             this.btnProdutoComposto.UseVisualStyleBackColor = true;
-            this.btnProdutoComposto.Click += new System.EventHandler(this.btnProdutoComposto_Click);
+            this.btnProdutoComposto.Click += new System.EventHandler(this.BtnProdutoComposto_Click);
             // 
             // listViewProdutos
             // 
@@ -60,7 +60,7 @@
             this.listViewProdutos.Size = new System.Drawing.Size(770, 445);
             this.listViewProdutos.TabIndex = 2;
             this.listViewProdutos.UseCompatibleStateImageBehavior = false;
-            this.listViewProdutos.DoubleClick += new System.EventHandler(this.listViewProdutos_DoubleClick);
+            this.listViewProdutos.DoubleClick += new System.EventHandler(this.ListViewProdutos_DoubleClick);
             // 
             // FormProdutos
             // 

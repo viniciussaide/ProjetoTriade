@@ -23,28 +23,26 @@ namespace Model
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             modelBuilder.Entity<ProductComposition>()
-                .HasKey(x => new { x.ProdutoId, x.ItemId });
+                .HasKey(x => new { x.ProductId, x.ItemId });
 
             modelBuilder.Entity<ProductComposition>()
-                .HasRequired(x => x.Produto)
+                .HasRequired(x => x.Product)
                 .WithMany(x => x.Itens);
 
             modelBuilder.Entity<ProductComposition>()
                 .HasRequired(x => x.Item)
-                .WithMany(x => x.Produtos);
+                .WithMany(x => x.Products);
 
             modelBuilder.Entity<ProductRequest>()
-                .HasKey(x => new { x.RequisicaoId, x.ProductId });
+                .HasKey(x => new { x.RequestId, x.ProductId });
 
             modelBuilder.Entity<ProductRequest>()
-                .HasRequired(x => x.Requisicao)
-                .WithMany(x => x.Produtos);
+                .HasRequired(x => x.Request)
+                .WithMany(x => x.Products);
 
             modelBuilder.Entity<ProductRequest>()
-                .HasRequired(x => x.Produto)
-                .WithMany(x => x.Requisicoes);
-
-            //base.OnModelCreating(modelBuilder);
+                .HasRequired(x => x.Product)
+                .WithMany(x => x.Requests);
         }
     }
 }

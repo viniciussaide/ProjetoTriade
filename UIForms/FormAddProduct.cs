@@ -6,25 +6,25 @@ namespace UIForms
 {
 	public partial class FormAddProduct : Form
 	{
-		public int productId { get; set; }
-		public int quantidade { get; set; }
+		public int ProductId { get; set; }
+		public int Quantity { get; set; }
 
-		private Product[] listaDeProdutos;
+		private Product[] ProductList;
 
 		//Método construtor
 		//Formulário se altera de acordo com a forma que foi chamado
 		//Assim o mesmo formulário pode retornar produtos simples ou todos os produtos
-		public FormAddProduct(Product[] listaDeProdutos)
+		public FormAddProduct(Product[] ProductList)
 		{
 			InitializeComponent();
 
-			this.listaDeProdutos = listaDeProdutos;
+			this.ProductList = ProductList;
 		}
 
 		protected override void OnLoad(EventArgs e)
 		{
-			comboBoxProductName.DataSource = listaDeProdutos;
-			comboBoxProductName.DisplayMember = "Nome";
+			comboBoxProductName.DataSource = ProductList;
+			comboBoxProductName.DisplayMember = "Name";
 			comboBoxProductName.ValueMember = "Id";
 			comboBoxProductName.SelectedIndex = -1;
 
@@ -32,17 +32,17 @@ namespace UIForms
 		}
 
 		//Botão OK
-		private void btnOk_Click(object sender, System.EventArgs e)
+		private void BtnOk_Click(object sender, EventArgs e)
 		{
 			//Verifica se produto existe na lista
 			if (comboBoxProductName.SelectedItem != null)
 			{
 				//Atualiza o ID e a quantidade a serem resgatados pelo formulario que necessitar
-				productId = int.Parse(comboBoxProductName.SelectedValue.ToString());
-				quantidade = int.Parse(txtQuantity.Text);
+				ProductId = int.Parse(comboBoxProductName.SelectedValue.ToString());
+				Quantity = int.Parse(txtQuantity.Text);
 
 				//Verifica se quantidade selecionada é maior que zero
-				if (quantidade > 0)
+				if (Quantity > 0)
 				{
 					this.DialogResult = DialogResult.OK;
 					this.Close();

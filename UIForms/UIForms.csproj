@@ -38,6 +38,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.11.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.11\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
@@ -59,29 +62,35 @@
     <Compile Include="FormAddProduct.Designer.cs">
       <DependentUpon>FormAddProduct.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormPrincipal.cs">
+    <Compile Include="FormDateInterval.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormPrincipal.Designer.cs">
-      <DependentUpon>FormPrincipal.cs</DependentUpon>
+    <Compile Include="FormDateInterval.Designer.cs">
+      <DependentUpon>FormDateInterval.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormProdutoComposto.cs">
+    <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormProdutoComposto.Designer.cs">
-      <DependentUpon>FormProdutoComposto.cs</DependentUpon>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormProdutos.cs">
+    <Compile Include="FormCompositeProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCompositeProduct.Designer.cs">
+      <DependentUpon>FormCompositeProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormProducts.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormProdutos.Designer.cs">
-      <DependentUpon>FormProdutos.cs</DependentUpon>
+      <DependentUpon>FormProducts.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormProdutoSimples.cs">
+    <Compile Include="FormSimpleProducts.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormProdutoSimples.Designer.cs">
-      <DependentUpon>FormProdutoSimples.cs</DependentUpon>
+    <Compile Include="FormSimpleProducts.Designer.cs">
+      <DependentUpon>FormSimpleProducts.cs</DependentUpon>
     </Compile>
     <Compile Include="FormRequestList.cs">
       <SubType>Form</SubType>
@@ -89,34 +98,38 @@
     <Compile Include="FormRequestList.Designer.cs">
       <DependentUpon>FormRequestList.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormRequisicao.cs">
+    <Compile Include="FormRequest.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormRequisicao.Designer.cs">
-      <DependentUpon>FormRequisicao.cs</DependentUpon>
+    <Compile Include="FormRequest.Designer.cs">
+      <DependentUpon>FormRequest.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportGeneratorPDF.cs" />
     <EmbeddedResource Include="FormAddProduct.resx">
       <DependentUpon>FormAddProduct.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormPrincipal.resx">
-      <DependentUpon>FormPrincipal.cs</DependentUpon>
+    <EmbeddedResource Include="FormDateInterval.resx">
+      <DependentUpon>FormDateInterval.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormProdutoComposto.resx">
-      <DependentUpon>FormProdutoComposto.cs</DependentUpon>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCompositeProduct.resx">
+      <DependentUpon>FormCompositeProduct.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormProdutos.resx">
-      <DependentUpon>FormProdutos.cs</DependentUpon>
+      <DependentUpon>FormProducts.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormProdutoSimples.resx">
-      <DependentUpon>FormProdutoSimples.cs</DependentUpon>
+    <EmbeddedResource Include="FormSimpleProducts.resx">
+      <DependentUpon>FormSimpleProducts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRequestList.resx">
       <DependentUpon>FormRequestList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormRequisicao.resx">
-      <DependentUpon>FormRequisicao.cs</DependentUpon>
+    <EmbeddedResource Include="FormRequest.resx">
+      <DependentUpon>FormRequest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

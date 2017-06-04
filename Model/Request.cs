@@ -7,9 +7,9 @@ namespace Model
     {
         //Classe base para objetos do tipo Requisicao.
         public int Id { get; set; }
-        public DateTime DataRequisicao { get; set; }
-        public string Funcionario { get; set; }
+        public DateTime RequestDate { get; set; }
+        public string Worker { get; set; }
 
-        public virtual ICollection<ProductRequest> Produtos { get; set; }
+        public virtual ICollection<ProductRequest> Products { get; set; }
     }
 }
