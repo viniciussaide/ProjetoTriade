@@ -74,13 +74,13 @@ namespace iTextSharp
                 "END AS 'ItemSubtotal' " +
                 "FROM " +
                     "(SELECT Name,ProductId,Id,SUM(Quantity) AS Quantity,(CostValue * SUM(Quantity))AS Subtotal " +
-                    "FROM DBtriade.dbo.ProductComposition " +
-                    "JOIN DBtriade.dbo.Product ON Id=ItemId " +
+                    "FROM ProductComposition " +
+                    "JOIN Product ON Id=ItemId " +
                     "GROUP BY Name,ProductId,Id,CostValue) " +
                 "AS ProductComposition " +
-                "RIGHT JOIN DBtriade.dbo.ProductRequest ON ProductComposition.ProductId=ProductRequest.ProductId " +
-                "JOIN DBtriade.dbo.Product ON ProductRequest.ProductId=Product.Id " +
-                "JOIN [DBtriade].[dbo].Request ON [ProductRequest].RequestId=Request.Id " +
+                "RIGHT JOIN ProductRequest ON ProductComposition.ProductId=ProductRequest.ProductId " +
+                "JOIN Product ON ProductRequest.ProductId=Product.Id " +
+                "JOIN Request ON ProductRequest.RequestId=Request.Id " +
                 "WHERE Request.RequestDate>='" + StartDate + "' AND Request.RequestDate<='" + EndDate + "') " +
                 "AS Final " +
                 "GROUP BY Final.[Id Produto],Final.[Name Produto];";
@@ -123,13 +123,13 @@ namespace iTextSharp
                 "END AS 'ItemSubtotal' " +
                 "FROM " +
                     "(SELECT Name,ProductId,Id,SUM(Quantity) AS Quantity,(CostValue * SUM(Quantity))AS Subtotal " +
-                    "FROM DBtriade.dbo.ProductComposition " +
-                    "JOIN DBtriade.dbo.Product ON Id=ItemId " +
+                    "FROM ProductComposition " +
+                    "JOIN Product ON Id=ItemId " +
                     "GROUP BY Name,ProductId,Id,CostValue) " +
                 "AS ProductComposition " +
-                "RIGHT JOIN DBtriade.dbo.ProductRequest ON ProductComposition.ProductId=ProductRequest.ProductId " +
-                "JOIN DBtriade.dbo.Product ON ProductRequest.ProductId=Product.Id " +
-                "JOIN [DBtriade].[dbo].Request ON [ProductRequest].RequestId=Request.Id " +
+                "RIGHT JOIN ProductRequest ON ProductComposition.ProductId=ProductRequest.ProductId " +
+                "JOIN Product ON ProductRequest.ProductId=Product.Id " +
+                "JOIN Request ON ProductRequest.RequestId=Request.Id " +
                 "WHERE Request.RequestDate>='" + StartDate + "' AND Request.RequestDate<='" + EndDate + "') " +
                 "AS Final;";
 
@@ -195,9 +195,9 @@ namespace iTextSharp
             var connection = ConfigurationManager.ConnectionStrings["DBtriade"].ConnectionString;
             SqlConnection conn = new SqlConnection(connection);
             string sql = "SELECT Product.Name, SUM(Quantity) AS Quantity, (Product.CostValue * SUM(Quantity)) AS CostValue, (Product.SellValue * SUM(Quantity)) AS SellValue " +
-                "FROM [DBtriade].[dbo].[ProductRequest] " +
-                "JOIN [DBtriade].[dbo].Product ON Id = ProductId " +
-                "JOIN [DBtriade].[dbo].Request ON [ProductRequest].RequestId = Request.Id " +
+                "FROM ProductRequest " +
+                "JOIN Product ON Id = ProductId " +
+                "JOIN Request ON ProductRequest.RequestId = Request.Id " +
                 "WHERE Request.RequestDate>='" + StartDate + "' AND Request.RequestDate<='" + EndDate + "' " +
                 "GROUP BY ProductId,Product.Name, CostValue, SellValue " +
                 "ORDER BY Product.Name;";
@@ -225,9 +225,9 @@ namespace iTextSharp
                 "(SELECT Product.Name, SUM(Quantity) AS Quantity," +
                 "(Product.CostValue * SUM(Quantity)) AS CostValue," +
                 "(Product.SellValue * SUM(Quantity)) AS SellValue " +
-                "FROM[DBtriade].[dbo].[ProductRequest] " +
-                "JOIN[DBtriade].[dbo].Product ON Id = ProductId " +
-                "JOIN[DBtriade].[dbo].Request ON[ProductRequest].RequestId = Request.Id " +
+                "FROM [ProductRequest] " +
+                "JOIN Product ON Id = ProductId " +
+                "JOIN Request ON[ProductRequest].RequestId = Request.Id " +
                "WHERE Request.RequestDate>='" + StartDate + "' AND Request.RequestDate<='" + EndDate + "' " +
                 "GROUP BY ProductId, Product.Name, CostValue, SellValue, Quantity) AS Total";
 
