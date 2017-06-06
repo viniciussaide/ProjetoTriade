@@ -91,7 +91,7 @@ namespace UIForms
                         ReportGeneratorPDF reportGenerator = new ReportGeneratorPDF(saveFileDialog.FileName, form.StartDate, form.EndDate);
                         try
                         {
-                            reportGenerator.RequestReport();
+                            reportGenerator.RequestProductsReport();
                         }
                         catch (Exception)
                         {
