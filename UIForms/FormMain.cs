@@ -102,5 +102,10 @@ namespace UIForms
                 }
             }
         }
+
+        private void menuPrincipal_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 }

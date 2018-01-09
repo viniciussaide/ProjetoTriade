@@ -81,7 +81,7 @@ namespace iTextSharp
                 "RIGHT JOIN ProductRequest ON ProductComposition.ProductId=ProductRequest.ProductId " +
                 "JOIN Product ON ProductRequest.ProductId=Product.Id " +
                 "JOIN Request ON ProductRequest.RequestId=Request.Id " +
-                "WHERE Request.RequestDate>='" + StartDate + "' AND Request.RequestDate<='" + EndDate + "') " +
+                "WHERE Request.RequestDate>='" + StartDate.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AND Request.RequestDate<='" + EndDate.ToString("yyyy-MM-dd HH:mm:ss.fff") + "') " +
                 "AS Final " +
                 "GROUP BY Final.[Id Produto],Final.[Name Produto];";
             conn.Open();
@@ -130,7 +130,7 @@ namespace iTextSharp
                 "RIGHT JOIN ProductRequest ON ProductComposition.ProductId=ProductRequest.ProductId " +
                 "JOIN Product ON ProductRequest.ProductId=Product.Id " +
                 "JOIN Request ON ProductRequest.RequestId=Request.Id " +
-                "WHERE Request.RequestDate>='" + StartDate + "' AND Request.RequestDate<='" + EndDate + "') " +
+                "WHERE Request.RequestDate>='" + StartDate.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AND Request.RequestDate<='" + EndDate.ToString("yyyy-MM-dd HH:mm:ss.fff") + "') " +
                 "AS Final;";
 
             command = new SqlCommand(sql, conn);
@@ -198,7 +198,7 @@ namespace iTextSharp
                 "FROM ProductRequest " +
                 "JOIN Product ON Id = ProductId " +
                 "JOIN Request ON ProductRequest.RequestId = Request.Id " +
-                "WHERE Request.RequestDate>='" + StartDate + "' AND Request.RequestDate<='" + EndDate + "' " +
+                "WHERE Request.RequestDate>='" + StartDate.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AND Request.RequestDate<='" + EndDate.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' " +
                 "GROUP BY ProductId,Product.Name, CostValue, SellValue " +
                 "ORDER BY Product.Name;";
             conn.Open();
@@ -228,7 +228,7 @@ namespace iTextSharp
                 "FROM [ProductRequest] " +
                 "JOIN Product ON Id = ProductId " +
                 "JOIN Request ON[ProductRequest].RequestId = Request.Id " +
-               "WHERE Request.RequestDate>='" + StartDate + "' AND Request.RequestDate<='" + EndDate + "' " +
+               "WHERE Request.RequestDate>='" + StartDate.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' AND Request.RequestDate<='" + EndDate.ToString("yyyy-MM-dd HH:mm:ss.fff") + "' " +
                 "GROUP BY ProductId, Product.Name, CostValue, SellValue, Quantity) AS Total";
 
             command = new SqlCommand(sql, conn);
