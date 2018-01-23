@@ -50,7 +50,6 @@
             this.menuPrincipal.Size = new System.Drawing.Size(652, 24);
             this.menuPrincipal.TabIndex = 3;
             this.menuPrincipal.Text = "Menu Principal";
-            this.menuPrincipal.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuPrincipal_ItemClicked);
             // 
             // produtosToolStripMenuItem
             // 

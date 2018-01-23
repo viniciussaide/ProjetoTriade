@@ -1,20 +1,23 @@
 namespace Model
 {
+    using System;
     using System.Data.Entity;
     using System.Data.Entity.ModelConfiguration.Conventions;
 
     public class DBtriade : DbContext
     {
-        public DBtriade(): base("name=DBtriade")
-        {
-        }
-
         //Variáveis que representam tabelas em que são armazenados os objetos no banco
         //Usados pelo entity framework para troca de informação entre aplicação e banco de dados
         public DbSet<Product> Product { get; set; }
         public DbSet<ProductComposition> ProductComposition { get; set; }
         public DbSet<ProductRequest> ProductRequest { get; set; }
         public DbSet<Request> Request { get; set; }
+
+        public DBtriade()
+            : base("name=DBtriade")
+        {
+            //Database.SetInitializer<DBtriade>(new CreateDatabaseIfNotExists<DBtriade>());
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

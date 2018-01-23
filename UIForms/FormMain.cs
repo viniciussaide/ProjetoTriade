@@ -1,6 +1,8 @@
-﻿using iTextSharp;
+﻿using Controller;
+using iTextSharp;
 using Model;
 using System;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
@@ -14,14 +16,15 @@ namespace UIForms
             try
             {
                 InitializeComponent();
-                this.WindowState = FormWindowState.Maximized;
                 DBtriade banco = new DBtriade();
+                banco.Database.CreateIfNotExists();
                 banco.Database.Connection.Open();
                 banco.Database.Connection.Close();
+                this.WindowState = FormWindowState.Maximized;
             }
             catch (SqlException)
             {
-                MessageBox.Show(@"Erro ao conectar com o banco. Verifique as configurações e tente novamente.", @"Erro ao salvar",
+                MessageBox.Show(@"Erro ao conectar com o banco. Verifique as configurações e tente novamente.", @"Erro ao conectar",
                     MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 this.Close();
             }
@@ -47,25 +50,34 @@ namespace UIForms
 
                 if (result == DialogResult.OK)
                 {
-
-                    SaveFileDialog saveFileDialog = new SaveFileDialog()
+                    RequestController requestController = new RequestController();
+                    var requisicoes = requestController.Select(form.StartDate, form.EndDate);
+                    if (requisicoes.Length >= 1)
                     {
-                        Filter = "Arquivo PDF|*.pdf",
-                        Title = "Salvar relatório de requisições"
-                    };
-                    saveFileDialog.ShowDialog();
-                    if (saveFileDialog.FileName != "")
+                        SaveFileDialog saveFileDialog = new SaveFileDialog()
+                        {
+                            Filter = "Arquivo PDF|*.pdf",
+                            Title = "Salvar relatório de requisições"
+                        };
+                        saveFileDialog.ShowDialog();
+                        if (saveFileDialog.FileName != "")
+                        {
+                            ReportGeneratorPDF reportGenerator = new ReportGeneratorPDF(saveFileDialog.FileName, form.StartDate, form.EndDate);
+                            try
+                            {
+                                reportGenerator.RequestReport();
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show(@"Erro ao salvar relatório", @"Erro ao salvar",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            }
+                        }
+                    }
+                    else
                     {
-                        ReportGeneratorPDF reportGenerator = new ReportGeneratorPDF(saveFileDialog.FileName, form.StartDate, form.EndDate);
-                        try
-                        {
-                            reportGenerator.RequestReport();
-                        }
-                        catch (Exception)
-                        {
-                            MessageBox.Show(@"Erro ao salvar relatório", @"Erro ao salvar",
-                                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        }
+                        MessageBox.Show(@"Não existem requisições no período selecionado", @"Período vazio",
+                        MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     }
                 }
             }
@@ -79,33 +91,37 @@ namespace UIForms
 
                 if (result == DialogResult.OK)
                 {
-
-                    SaveFileDialog saveFileDialog = new SaveFileDialog()
+                    RequestController requestController = new RequestController();
+                    var requisicoes = requestController.Select(form.StartDate, form.EndDate);
+                    if (requisicoes.Length >= 1)
                     {
-                        Filter = "Arquivo PDF|*.pdf",
-                        Title = "Salvar relatório de requisições"
-                    };
-                    saveFileDialog.ShowDialog();
-                    if (saveFileDialog.FileName != "")
+                        SaveFileDialog saveFileDialog = new SaveFileDialog()
+                        {
+                            Filter = "Arquivo PDF|*.pdf",
+                            Title = "Salvar relatório de requisições"
+                        };
+                        saveFileDialog.ShowDialog();
+                        if (saveFileDialog.FileName != "")
+                        {
+                            ReportGeneratorPDF reportGenerator = new ReportGeneratorPDF(saveFileDialog.FileName, form.StartDate, form.EndDate);
+                            try
+                            {
+                                reportGenerator.RequestProductsReport();
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show(@"Erro ao salvar relatório", @"Erro ao salvar",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            }
+                        }
+                    }
+                    else
                     {
-                        ReportGeneratorPDF reportGenerator = new ReportGeneratorPDF(saveFileDialog.FileName, form.StartDate, form.EndDate);
-                        try
-                        {
-                            reportGenerator.RequestProductsReport();
-                        }
-                        catch (Exception)
-                        {
-                            MessageBox.Show(@"Erro ao salvar relatório", @"Erro ao salvar",
-                                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                        }
+                        MessageBox.Show(@"Não existem requisições no período selecionado", @"Período vazio",
+                        MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     }
                 }
             }
-        }
-
-        private void menuPrincipal_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
         }
     }
 }

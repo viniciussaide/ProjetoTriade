@@ -37,6 +37,12 @@ namespace Controller
             return DBtriade.Request.Where(r => r.Worker == worker).FirstOrDefault(r => r.RequestDate == requestDate);
         }
 
+        //Seleciona uma lista de requisições de um período requisitado
+        public Request[] Select(DateTime startDate, DateTime endDate)
+        {
+            return DBtriade.Request.Where(r =>r.RequestDate >= startDate).Where(r => r.RequestDate <= endDate).ToArray();
+        }
+
         //Altera uma requisição pre-selecionada
         public void Update(Request Request)
         {
