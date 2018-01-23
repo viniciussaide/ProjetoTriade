@@ -150,19 +150,20 @@ namespace iTextSharp
 
 			if (paragrafo.Add(table) && doc.Add(paragrafo))
 			{
+                //Fecha conexão e arquivo PDF
+                doc.Close();
+                System.Diagnostics.Process.Start(FilePath);
 				MessageBox.Show(@"Relatório salvo com sucesso!", @"Sucesso ao salvar",
 					MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 			}
 			else
 			{
-				MessageBox.Show(@"Erro ao salvar relatório", @"Erro ao salvar",
+                doc.Close();
+                MessageBox.Show(@"Erro ao salvar relatório", @"Erro ao salvar",
 					MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 			}
-
-			//Fecha conexão e arquivo PDF
-			doc.Close();
-			conn.Close();
-		}
+            conn.Close();
+        }
 
 		public void RequestReport()
 		{
@@ -174,7 +175,7 @@ namespace iTextSharp
 				doc.AddCreationDate();
 
 				doc.Open();
-
+                
 				string dados = "";
 
 				Paragraph paragrafo = new Paragraph(dados, new Font(Font.NORMAL, 14))
@@ -256,20 +257,20 @@ namespace iTextSharp
 				if (paragrafo.Add(table) && doc.Add(paragrafo))
 				{
 					//Fecha conexão e arquivo PDF
-					conn.Close();
 					doc.Close();
-					MessageBox.Show(@"Relatório salvo com sucesso!", @"Sucesso ao salvar",
+                    System.Diagnostics.Process.Start(FilePath);
+                    MessageBox.Show(@"Relatório salvo com sucesso!", @"Sucesso ao salvar",
 						MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 				}
 				else
 				{
 					//Fecha conexão e arquivo PDF
-					conn.Close();
 					doc.Close();
 					MessageBox.Show(@"Erro ao salvar relatório", @"Erro ao salvar",
 						MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 				}
-			}
+                conn.Close();
+            }
 		}
 	}
 }
